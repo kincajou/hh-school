@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- using constructor -->
+    <bean id="areaDao" class="ru.hh.school.AreaDao" >
+        <!-- index and type to fix ambiguous situations -->
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <!-- don't need id here since it is not referenced by anything -->
+    <bean class="ru.hh.school.AreaService" >
+        <constructor-arg ref="areaDao"/>
+    </bean>
+
+</beans>
