@@ -15,6 +15,7 @@ public class T2SeveralThreads {
   public static void main(String[] args) throws InterruptedException {
 
     int iterations = 1_000_000_000;
+    // how much cores do we have?
     int numOfThreads = Runtime.getRuntime().availableProcessors();
 
     while (true) {
@@ -22,12 +23,14 @@ public class T2SeveralThreads {
 
       Task task = new Task(iterations / numOfThreads); // not precise, but ok to show the idea
       List<Thread> threads = IntStream.range(0, numOfThreads)
+        // NOTE: name your threads!
           .mapToObj(i -> new Thread(task, "thread" + i))
           .collect(toList());
       threads.forEach(Thread::start);
       for (Thread thread : threads) {
         thread.join();
       }
+      // can't restart thread
 
       long duration = currentTimeMillis() - start;
       System.out.println(duration + " ms, " + task.getBlackHole());

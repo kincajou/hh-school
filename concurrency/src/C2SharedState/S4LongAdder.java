@@ -10,6 +10,7 @@ public class S4LongAdder {
 
   // Java 8 added LongAdder.
   // It tries to spread one counter across several to reduce contention.
+  // Still slow on heavy contention
 
   static class LongAdderTask extends Task {
 
@@ -43,6 +44,7 @@ public class S4LongAdder {
 
       long duration = currentTimeMillis() - start;
       System.out.println(duration + " ms, " + task.actualIterations.intValue() + " iterations, " + task.getBlackHole());
+      // will it work faster or slower?
 
     }
   }

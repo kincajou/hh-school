@@ -1,6 +1,5 @@
 package C4ThreadPools;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -23,7 +22,7 @@ public class T3ThreadPoolProblem {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException, ExecutionException {
+  public static void main(String[] args) {
 
     Executor executor = Executors.newSingleThreadExecutor();
 

@@ -2,7 +2,6 @@ package C4ThreadPools;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -36,7 +35,7 @@ public class T4ThreadPoolQueue {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException, ExecutionException {
+  public static void main(String[] args) {
 
     int maxQueueSize = 100;
     BlockingQueue<Runnable> blockingQueue = new ArrayBlockingQueue<>(maxQueueSize);

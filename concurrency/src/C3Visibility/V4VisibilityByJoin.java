@@ -8,6 +8,6 @@ public class V4VisibilityByJoin {
   // TODO: piggybacking example
   // Besides, "visibility" is a simplification. For more details see:
   // https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html
-  // https://www.youtube.com/watch?v=noDnSV7NCtw and https://www.youtube.com/watch?v=Ky1_5mabd18
+  // https://www.youtube.com/watch?v=noDnSV7NCtw and https://www.youtube.com/watch?v=Ky1_5mabd18  // Shipilev JMM
 
 }

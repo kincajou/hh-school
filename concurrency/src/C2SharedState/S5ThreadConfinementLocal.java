@@ -2,7 +2,7 @@ package C2SharedState;
 
 import static java.lang.System.currentTimeMillis;
 
-public class S5ThreadConfinement {
+public class S5ThreadConfinementLocal {
 
   // Instead of using fancy tools, just do not share state.
   // The code is simpler.
@@ -23,9 +23,11 @@ public class S5ThreadConfinement {
 
     @Override
     public void run() {
+      int actualIterations = 0;
       for (int i = 0; i < iterations; i++) {
         actualIterations++;
       }
+      this.actualIterations = actualIterations;
     }
   }
 
@@ -51,7 +53,7 @@ public class S5ThreadConfinement {
 
       long duration = currentTimeMillis() - start;
       System.out.println(duration + " ms, " + actualIterations + " iterations");
-      // will it work faster or slower?
+      // will it work faster or slower than the previous code?
 
     }
   }

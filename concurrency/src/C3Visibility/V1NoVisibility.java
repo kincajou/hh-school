@@ -23,7 +23,7 @@ public class V1NoVisibility {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) {
 
     int iterations = 10_000;
 
@@ -34,9 +34,21 @@ public class V1NoVisibility {
     thread.start();
 
     while (true) {
-      if (task.actualIterations == iterations) {
+      // can we put == here?
+      if (task.actualIterations >= iterations) {
         break;
       }
+      // will reading second time help?
+
+      //if (task.actualIterations >= iterations) {
+      //   break;
+      // }
+
+      // will sysout help?
+
+      // System.out.println(task.actualIterations);
+
+      // will another OS help?
     }
 
     long duration = currentTimeMillis() - start;

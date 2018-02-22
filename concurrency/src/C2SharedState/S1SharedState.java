@@ -13,6 +13,7 @@ public class S1SharedState {
       super(iterations);
     }
 
+    // shared state
     int actualIterations = 0;
 
     @Override
@@ -34,6 +35,7 @@ public class S1SharedState {
     thread1.join();
     thread2.join();
     System.out.println("Expected " + iterations + ", got " + task.actualIterations + ", " + task.getBlackHole());
+    // how much do we get in output?
 
   }
 }

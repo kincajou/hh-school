@@ -1,6 +1,5 @@
 package C5Interrupts;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class I1InterruptThread {
@@ -22,7 +21,7 @@ public class I1InterruptThread {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException, ExecutionException {
+  public static void main(String[] args) throws InterruptedException {
 
     LongTask longTask = new LongTask();
 
@@ -35,6 +34,7 @@ public class I1InterruptThread {
     thread.join();
 
     System.out.println("Thread stopped, " + longTask.blackHole);
+    // will it stop?
 
   }
 }

@@ -17,6 +17,7 @@ public class Task implements Runnable {
     int blackHole = 0;
     ThreadLocalRandom random = ThreadLocalRandom.current();
     for (int i = 0; i < iterations; i++) {
+      // can we comment this block? is it needed?
       blackHole += random.nextInt();
       onIteration();
     }

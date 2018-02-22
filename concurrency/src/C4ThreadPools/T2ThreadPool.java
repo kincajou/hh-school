@@ -16,7 +16,7 @@ public class T2ThreadPool {
 
   static class SmallTask implements Callable<Integer> {
     @Override
-    public Integer call() throws Exception {
+    public Integer call() {
       return ThreadLocalRandom.current().nextInt();
     }
   }
@@ -38,8 +38,13 @@ public class T2ThreadPool {
         blackHole += future.get();
       }
 
+      // don't forget to shutdown executor
+      // stops accepting new tasks
       executorService.shutdown();
+      // waits until all running tasks finish or timeout happens
       executorService.awaitTermination(10L, TimeUnit.MILLISECONDS);
+      // interrupts all running threads, still no guarantee that everything finished
+      executorService.shutdownNow();
 
       long duration = currentTimeMillis() - start;
       float taskDuration = (float) duration / iterations;

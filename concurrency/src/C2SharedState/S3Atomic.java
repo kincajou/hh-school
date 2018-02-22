@@ -24,8 +24,10 @@ public class S3Atomic {
       super(iterations);
     }
 
+    // different types of Atomic exist
     final AtomicInteger actualIterations = new AtomicInteger();
 
+    // same as synchronized block
     @Override
     protected void onIteration() {
       actualIterations.incrementAndGet();
@@ -50,6 +52,7 @@ public class S3Atomic {
 
       long duration = currentTimeMillis() - start;
       System.out.println(duration + " ms, " + task.actualIterations.get() + " iterations, " + task.getBlackHole());
+      // will this work better or worse than synchronized block?
 
     }
   }

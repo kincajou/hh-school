@@ -8,7 +8,7 @@ public class D1DeadLock {
     int money;
   }
 
-  static void transfer(Wallet fromWallet, Wallet toWallet, int money) {
+  private static void transfer(Wallet fromWallet, Wallet toWallet, int money) {
     synchronized (fromWallet) {
       synchronized (toWallet) {
         fromWallet.money -= money;
@@ -17,7 +17,7 @@ public class D1DeadLock {
     }
   }
 
-  static Runnable createTransferTask(Wallet fromWallet, Wallet toWallet, int money) {
+  private static Runnable createTransferTask(Wallet fromWallet, Wallet toWallet, int money) {
     return () -> {
       int i = 0;
       while(true) {

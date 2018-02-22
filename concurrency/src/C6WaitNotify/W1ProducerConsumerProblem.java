@@ -12,15 +12,23 @@ public class W1ProducerConsumerProblem {
     private volatile T task;
 
     @Override
+    // will synchronized helps here?
     public void produce(T task) {
-      while(this.task != null) {}
+      while(this.task != null) {
+        // do nothing
+      }
       this.task = task;
-      while(task.equals(this.task)) {}
+      while(task.equals(this.task)) {
+        // do nothing
+      }
     }
 
     @Override
+    // and/or here?
     public T consume() {
-      while (this.task == null && !Thread.currentThread().isInterrupted()) {}
+      while (this.task == null && !Thread.currentThread().isInterrupted()) {
+        // do nothing
+      }
       T task = this.task;
       this.task = null;
       return task;
@@ -47,6 +55,8 @@ public class W1ProducerConsumerProblem {
 
     consumerThread.interrupt();
     consumerThread.join();
+
+    // what are the problems here?
 
   }
 }

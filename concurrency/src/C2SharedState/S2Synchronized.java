@@ -14,7 +14,11 @@ public class S2Synchronized {
       super(iterations);
     }
 
+    // common object threads synchronize on
+    // can't be primitive
     final Object monitor = new Object();
+
+    // shared state
     int actualIterations = 0;
 
     @Override
@@ -23,6 +27,11 @@ public class S2Synchronized {
         actualIterations++;
       }
     }
+
+    // synchronize on 'this' - worse than explicit monitor, can't know what else may sync this way, leading to problems
+//    protected synchronized void onIteration() {
+//      actualIterations++;
+//    }
   }
 
   public static void main(String[] args) throws InterruptedException {
@@ -43,7 +52,9 @@ public class S2Synchronized {
 
       long duration = currentTimeMillis() - start;
       System.out.println(duration + " ms, " + task.actualIterations + " iterations, " + task.getBlackHole());
-
+      // whats happening here:
+      // - sync on monitor
+      // - synchronized block resets cpu cache for 'actualIterations' to achieve coherency
     }
   }
 }

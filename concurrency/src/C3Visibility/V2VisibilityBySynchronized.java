@@ -6,7 +6,7 @@ import static java.lang.System.currentTimeMillis;
 
 public class V2VisibilityBySynchronized {
 
-  // Synchronized guarantees visibility between threads that synchronize on the same monitor.
+  // Synchronized guarantees visibility of ALL variables (incl. i.e. blackhole) between threads that synchronize on the same monitor.
   // But it prevents parallel execution and is not cheap.
 
   static class SynchronizedTask extends Task {
@@ -38,7 +38,7 @@ public class V2VisibilityBySynchronized {
       thread.start();
       while (true) {
         synchronized (task.monitor) {
-          if (task.actualIterations == iterations) {
+          if (task.actualIterations >= iterations) {
             break;
           }
         }

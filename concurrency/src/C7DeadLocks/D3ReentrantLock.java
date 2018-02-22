@@ -12,6 +12,7 @@ public class D3ReentrantLock {
   // We can use Lock.tryLock(time)
 
   static class Wallet {
+    // can be fair or not
     private final Lock lock = new ReentrantLock();
     int money;
 
@@ -30,7 +31,7 @@ public class D3ReentrantLock {
     }
   }
 
-  static void transfer(Wallet fromWallet, Wallet toWallet, int money) throws Exception {
+  private static void transfer(Wallet fromWallet, Wallet toWallet, int money) throws Exception {
     fromWallet.locked(() -> {
       toWallet.locked(() -> {
         fromWallet.money -= money;
@@ -41,7 +42,7 @@ public class D3ReentrantLock {
     });
   }
 
-  static Runnable createTransferTask(Wallet fromWallet, Wallet toWallet, int money) {
+  private static Runnable createTransferTask(Wallet fromWallet, Wallet toWallet, int money) {
     return () -> {
       int i = 0;
       while (true) {

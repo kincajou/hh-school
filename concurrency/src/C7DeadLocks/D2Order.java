@@ -17,7 +17,7 @@ public class D2Order {
     int money;
   }
 
-  static void transfer(Wallet fromWallet, Wallet toWallet, int money) {
+  private static void transfer(Wallet fromWallet, Wallet toWallet, int money) {
     Wallet[] wallets = new Wallet[] {fromWallet, toWallet};
     Arrays.sort(wallets, Comparator.comparingInt(w -> w.walletId));
     synchronized (wallets[0]) {
@@ -28,7 +28,7 @@ public class D2Order {
     }
   }
 
-  static Runnable createTransferTask(Wallet fromWallet, Wallet toWallet, int money) {
+  private static Runnable createTransferTask(Wallet fromWallet, Wallet toWallet, int money) {
     return () -> {
       int i = 0;
       while (true) {

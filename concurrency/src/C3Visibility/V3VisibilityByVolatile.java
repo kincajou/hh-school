@@ -16,6 +16,7 @@ public class V3VisibilityByVolatile {
       super(iterations);
     }
 
+    // Thread that reads will see correct value after another thread writes it
     volatile int actualIterations = 0;
 
     @Override
@@ -35,7 +36,7 @@ public class V3VisibilityByVolatile {
       Thread thread = new Thread(task, "thread1");
       thread.start();
       while (true) {
-        if (task.actualIterations == iterations) {
+        if (task.actualIterations >= iterations) {
           break;
         }
         Thread.sleep(10L);

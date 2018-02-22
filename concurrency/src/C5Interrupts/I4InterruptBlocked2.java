@@ -1,6 +1,5 @@
 package C5Interrupts;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class I4InterruptBlocked2 {
@@ -35,7 +34,7 @@ public class I4InterruptBlocked2 {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException, ExecutionException {
+  public static void main(String[] args) throws InterruptedException {
 
     LongTask longTask = new LongTask();
 
