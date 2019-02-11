@@ -4,20 +4,24 @@ import com.google.common.util.concurrent.Uninterruptibles;
 import java.util.concurrent.Callable;
 import org.apache.commons.lang3.time.StopWatch;
 import org.openjdk.jmh.infra.Blackhole;
+import org.slf4j.Logger;
 import ru.hh.school.parallelism.executor.ExecutorComputation;
 import ru.hh.school.parallelism.fjp.ForkJoinPoolComputation;
 import ru.hh.school.parallelism.sequential.SequentialComputation;
 import ru.hh.school.parallelism.stream.ParallelStreamComputation;
-import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class Runner {
 
+  private static final Logger LOGGER = getLogger(Runner.class);
+
   private static int CYCLES = 1_000;
   private static int CPU_CYCLES = 10_000_000;
+  private static int IO_MILLISECONDS = 5;
 
   public static void main(String[] args) throws Exception {
-    System.out.println("Started");
+    LOGGER.debug("Started");
 
     // run sequential
     measure("Sequential", () -> new SequentialComputation().compute(CYCLES));
@@ -43,7 +47,7 @@ public class Runner {
 
     stopWatch.stop();
 
-    System.out.println(format("%s: (%d) in %s", name, result, stopWatch.toString()));
+    LOGGER.debug("{}: ({}) in {}", name, result, stopWatch.toString());
   }
 
   public static long performCPUJob() {
@@ -52,7 +56,7 @@ public class Runner {
   }
 
   public static long performIOJob() {
-    Uninterruptibles.sleepUninterruptibly(5, MILLISECONDS);
+    Uninterruptibles.sleepUninterruptibly(IO_MILLISECONDS, MILLISECONDS);
     return 200;
   }
 }

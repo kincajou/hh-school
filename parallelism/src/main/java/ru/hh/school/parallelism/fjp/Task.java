@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.RecursiveTask;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import ru.hh.school.parallelism.Runner;
 import static java.util.stream.Collectors.toList;
 
 public class Task extends RecursiveTask<Long> {
@@ -47,4 +48,17 @@ public class Task extends RecursiveTask<Long> {
 
     return task1.join() + task2.join();
   }
+
+  public class CPUTask extends RecursiveTask<Long> {
+    protected Long compute() {
+      return Runner.performCPUJob();
+    }
+  }
+
+  public class IOTask extends RecursiveTask<Long> {
+    protected Long compute() {
+      return Runner.performIOJob();
+    }
+  }
+
 }

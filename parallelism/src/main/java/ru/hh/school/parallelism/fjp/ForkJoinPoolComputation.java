@@ -5,7 +5,6 @@ import ru.hh.school.parallelism.Computation;
 
 public class ForkJoinPoolComputation implements Computation {
 
-  @Override
   public long compute(int tasks) {
     ForkJoinPool pool = new ForkJoinPool();
     Task task = new Task(tasks);

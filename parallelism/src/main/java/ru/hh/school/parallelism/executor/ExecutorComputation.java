@@ -9,7 +9,6 @@ import ru.hh.school.parallelism.Runner;
 
 public class ExecutorComputation implements Computation {
 
-  @Override
   public long compute(int tasks) throws InterruptedException {
     ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     CountDownLatch latch = new CountDownLatch(tasks);
