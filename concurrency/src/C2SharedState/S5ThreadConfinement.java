@@ -7,7 +7,9 @@ public class S5ThreadConfinement {
   // Instead of using fancy tools, just do not share state.
   // The code is simpler.
   // And JIT loves it.
-  // TODO: JIT bug if local variable actualIterations is published to instance property after cycle
+  // TODO: JIT acting weird if local variable actualIterations is published to instance property after cycle
+  // -XX:+PrintCompilation
+  // https://stackoverflow.com/a/41154126
 
   // different implementation of task
   static class ThreadConfinementTask implements Runnable {

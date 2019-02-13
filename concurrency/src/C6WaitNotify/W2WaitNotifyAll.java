@@ -58,7 +58,7 @@ public class W2WaitNotifyAll {
     singularQueue.produce("Hello, ");
     singularQueue.produce("world!");
 
-    Thread.sleep(10L);
+    Thread.sleep(1000L);
 
     consumerThread.interrupt();
     consumerThread.join();

@@ -51,7 +51,7 @@ public class W1ProducerConsumerProblem {
     singularQueue.produce("Hello, ");
     singularQueue.produce("world!");
 
-    Thread.sleep(10L);  // sleep is always suboptimal, indicates lack of synchronization
+    Thread.sleep(100L);  // sleep is always suboptimal, indicates lack of synchronization
 
     consumerThread.interrupt();
     consumerThread.join();

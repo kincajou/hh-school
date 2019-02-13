@@ -3,6 +3,7 @@ package C7DeadLocks;
 public class D1DeadLock {
 
   // Does this program always make progress?
+  // Let's check with jstack
 
   static class Wallet {
     int money;

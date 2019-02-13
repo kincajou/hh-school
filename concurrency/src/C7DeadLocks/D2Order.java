@@ -6,6 +6,7 @@ import java.util.Comparator;
 public class D2Order {
 
   // Let's always synchronize in particular order.
+  // What if wallet will be the same?
 
   static class Wallet {
     final int walletId;

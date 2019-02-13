@@ -45,6 +45,7 @@ public class S6ThreadConfinement2 {
       long duration = currentTimeMillis() - start;
       System.out.println(duration + " ms, " + actualIterations + " iterations, " + blackHole);
 
+      // why the results are unstable?
     }
   }
 }
