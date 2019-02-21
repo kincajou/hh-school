@@ -12,6 +12,12 @@ public class ParallelStreamInMyFJP {
   private static final Logger LOGGER = getLogger(ParallelStreamInMyFJP.class);
 
   public static void main(String[] args) throws InterruptedException {
+    LOGGER.debug("Running in common");
+
+    IntStream.range(0, 5).parallel().forEach(ParallelStreamInMyFJP::performTask);
+
+    LOGGER.debug("Running in custom");
+
     ForkJoinPool forkJoinPool = new ForkJoinPool(1);
 
     forkJoinPool.submit(() -> IntStream.range(0, 5).parallel().forEach(ParallelStreamInMyFJP::performTask));
