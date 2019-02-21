@@ -15,8 +15,8 @@ public class CF5ErrorHandling {
     promise
       .thenApply(CF5ErrorHandling::logging)
       .thenApply(CF5ErrorHandling::throwing)
-      .thenApply(CF5ErrorHandling::changing)
-      .thenApply(CF5ErrorHandling::logging)
+      .thenApply(CF5ErrorHandling::changing) // skipped
+      .thenApply(CF5ErrorHandling::logging) // skipped
       .exceptionally(CF5ErrorHandling::handle)
       .thenApply(CF5ErrorHandling::logging);
 
@@ -37,7 +37,7 @@ public class CF5ErrorHandling {
 
   private static String throwing(String data) {
     LOGGER.debug("Throwing: {}", data);
-    throw new RuntimeException(data);
+    throw new RuntimeException("error!");
   }
 
   private static String changing(String data) {
@@ -49,6 +49,4 @@ public class CF5ErrorHandling {
     LOGGER.debug("Handle: {}", t.getMessage());
     return "data after handle";
   }
-
-
 }

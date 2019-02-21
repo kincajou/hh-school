@@ -29,7 +29,7 @@ public class CF1 {
       .thenRun(() -> LOGGER.debug("but can keep going"))
       .thenRun(() -> LOGGER.debug("on and on and on"))
       .thenApply(v -> 42)
-      .thenAccept(n -> LOGGER.debug("and the answer is {}", n));
+      .thenAccept(n -> LOGGER.debug("[SPOILER ALERT] and the answer is {}", n));
 
     sleepUninterruptibly(1, SECONDS);
   }

@@ -2,12 +2,14 @@ package ru.hh.school.async;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import static com.google.common.util.concurrent.Uninterruptibles.sleepUninterruptibly;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class CF2Promise {
   
-  private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(CF2Promise.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(CF2Promise.class);
 
   public static void main(String[] args) throws ExecutionException, InterruptedException {
     CompletableFuture<String> promise = new CompletableFuture<>();
