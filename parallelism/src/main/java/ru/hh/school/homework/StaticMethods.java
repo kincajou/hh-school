@@ -14,19 +14,26 @@ import java.util.stream.Stream;
 import static java.util.Collections.reverseOrder;
 import static java.util.Map.Entry.comparingByValue;
 import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.counting;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.*;
 
 public class StaticMethods {
 
+    protected static Map<String, Long> mapTop(Map<String, Long> wordMap) {
+        return wordMap.entrySet()
+            .stream()
+            .sorted(comparingByValue(reverseOrder()))
+            .limit(10)
+            .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
 
+    // сливает две мапы в одну, суммируя численные значения с одинаковым ключом
     protected static Map<String, Long> mapCombiner (
             Map<String, Long> map1, Map<String, Long> map2) {
         return Stream.concat(map1.entrySet().stream(), map2.entrySet().stream())
                 .collect(Collectors.groupingBy(Map.Entry::getKey,
                      Collectors.summingLong(Map.Entry::getValue)));
     }
+
 
     protected static Map<String, Long> naiveCount(Path path) {
         try {
