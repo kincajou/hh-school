@@ -9,7 +9,7 @@ public class W1ProducerConsumerProblem {
 
   static class SingularQueue<T> implements Producer<T>, Consumer<T> {
 
-    private volatile T task;
+    private volatile T task; // does volatile helps here?
 
     @Override
     // will synchronized helps here?

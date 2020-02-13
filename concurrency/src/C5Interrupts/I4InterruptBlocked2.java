@@ -19,7 +19,7 @@ public class I4InterruptBlocked2 {
           blackHole += random.nextInt();
           deepMethod();
         } catch (RuntimeException e) {
-          System.out.println("failed to save vacancy: " + e);
+          System.out.println("failed process deep method: " + e);
         }
       }
     }
@@ -29,7 +29,7 @@ public class I4InterruptBlocked2 {
         Thread.sleep(1000L);
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
-        throw new RuntimeException("interrupted while waiting DB", e);
+        throw new RuntimeException("interrupted while sleeping", e);
       }
     }
   }
