@@ -3,7 +3,7 @@ package C7DeadLocks;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class D2Order {
+public class D2DeadLockFix {
 
   // Let's always synchronize in particular order.
   // What if wallet will be the same?

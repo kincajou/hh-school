@@ -5,7 +5,7 @@ public class W1ProducerConsumerProblem {
   // We saw BlockingQueue in front of a thread pool.
   // Blocking queue is a common tool to decouple producers from consumers.
   // Consider a simplified implementation.
-  // Any problem?
+  // Any problems?
 
   static class SingularQueue<T> implements Producer<T>, Consumer<T> {
 

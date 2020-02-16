@@ -24,10 +24,11 @@ public class I4InterruptBlocked2 {
       }
     }
 
-    private static void deepMethod() {
+    private static void deepMethod() { // catch InterruptedException or propagate it up?
       try {
         Thread.sleep(1000L);
       } catch (InterruptedException e) {
+        // don't swallow InterruptedException
         Thread.currentThread().interrupt();
         throw new RuntimeException("interrupted while sleeping", e);
       }
