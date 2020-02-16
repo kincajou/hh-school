@@ -10,17 +10,16 @@ public class CF7Threads2 {
 
   public static void main(String[] args) {
     CompletableFuture<String> promise = new CompletableFuture<>();
-    promise
-      .thenApply(s -> s + ", Петя")
-      .thenApply(s -> s + ", Аня")
-      .thenApply(s -> s + ", Света")
-      .thenApply(s -> s + " едят пиццу")
-      .thenAccept(LOGGER::debug);
+    CompletableFuture<Void> promiseWithModifiers = promise.thenApply(s -> s + ", Петя")
+        .thenApply(s -> s + ", Аня")
+        .thenApply(s -> s + ", Света")
+        .thenApply(s -> s + " едят пиццу")
+        .thenAccept(LOGGER::debug);
 
     // sleep?
     new Thread(() -> promise.complete("Витя"), "Thread 2").start();
 
-    promise.join();
+    promiseWithModifiers.join();
   }
 
 }

@@ -20,6 +20,7 @@ public class DeepThought {
   public CompletableFuture<String> request(String question) {
     CompletableFuture<String> promise = new CompletableFuture<>();
     mind.submit(new ThoughtRoutine(promise, question));
+    // promise.thenApply(TrueEvil::delay);
     return promise;
   }
 

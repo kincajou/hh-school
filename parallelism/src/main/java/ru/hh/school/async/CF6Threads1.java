@@ -10,16 +10,15 @@ public class CF6Threads1 {
 
   public static void main(String[] args) {
     CompletableFuture<String> promise = new CompletableFuture<>();
-    promise
-      .thenApply(s -> s + ", Петя")
-      .thenApply(s -> s + ", Аня")
-      .thenApply(s -> s + ", Света")
-      .thenApply(s -> s + " едят пиццу")
-      .thenAccept(LOGGER::debug);
+    CompletableFuture<Void> promiseWithModifiers = promise.thenApply(s -> s + ", Петя")
+        .thenApply(s -> s + ", Аня")
+        .thenApply(s -> s + ", Света")
+        .thenApply(s -> s + " едят пиццу")
+        .thenAccept(LOGGER::debug);
 
     promise.complete("Витя");
 
-    promise.join();
+    promiseWithModifiers.join();
   }
 
 }

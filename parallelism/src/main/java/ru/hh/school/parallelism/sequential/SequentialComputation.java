@@ -7,7 +7,11 @@ import ru.hh.school.parallelism.Runner;
 public class SequentialComputation implements Computation {
 
   public long compute(int tasks) {
-    return IntStream.range(0, tasks).mapToLong(i -> Runner.performCPUJob()).map(result -> result + Runner.performIOJob()).sum();
+    return IntStream
+      .range(0, tasks)
+      .mapToLong(i -> Runner.performCPUJob())
+      .map(result -> result + Runner.performIOJob())
+      .sum();
   }
 
 }

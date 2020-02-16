@@ -15,16 +15,15 @@ public class CF8Threads3 {
     ExecutorService executor = Executors.newSingleThreadExecutor(r -> new Thread(r, "Thread 3"));
 
     CompletableFuture<String> promise = new CompletableFuture<>();
-    promise
-      .thenApply(s -> s + ", Петя")
-      .thenApplyAsync(s -> s + ", Аня", executor)
-      .thenApply(s -> s + ", Света")
-      .thenApply(s -> s + " едят пиццу")
-      .thenAccept(LOGGER::debug);
+    CompletableFuture<Void> promiseWithModifiers = promise.thenApply(s -> s + ", Петя")
+        .thenApplyAsync(s -> s + ", Аня", executor)
+        .thenApply(s -> s + ", Света")
+        .thenApply(s -> s + " едят пиццу")
+        .thenAccept(LOGGER::debug);
 
     new Thread(() -> promise.complete("Витя"), "Thread 2").start();
 
-    promise.join();
+    promiseWithModifiers.join();
 
     executor.awaitTermination(1, TimeUnit.SECONDS);
     executor.shutdown();

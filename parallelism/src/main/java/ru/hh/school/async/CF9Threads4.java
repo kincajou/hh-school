@@ -17,18 +17,17 @@ public class CF9Threads4 {
     CompletableFuture<String> promise = new CompletableFuture<>();
     CompletableFuture<String> promise2 = new CompletableFuture<>();
 
-    promise
-      .thenApply(s -> s + ", Петя")
-      .thenApplyAsync(s -> s + ", Аня", executor)
-      .thenApply(s -> s + ", Света")
-      .thenCombine(promise2, (s1, s2) -> s1 + " а так же " + s2)
-      .thenApply(s -> s + " пьют вино")
-      .thenAccept(LOGGER::debug);
+    CompletableFuture<Void> promiseWithModifiers = promise.thenApply(s -> s + ", Петя")
+        .thenApplyAsync(s -> s + ", Аня", executor)
+        .thenApply(s -> s + ", Света")
+        .thenCombine(promise2, (s1, s2) -> s1 + " а так же " + s2)
+        .thenApply(s -> s + " пьют вино")
+        .thenAccept(LOGGER::debug);
 
     new Thread(() -> promise.complete("Витя"), "Thread 2").start();
     new Thread(() -> promise2.complete("Сережа"), "Thread 55").start();
 
-    promise.join();
+    promiseWithModifiers.join();
 
     executor.awaitTermination(1, TimeUnit.SECONDS);
     executor.shutdown();

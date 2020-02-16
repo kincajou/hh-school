@@ -20,6 +20,7 @@ public class Runner {
   private static int CPU_CYCLES = 10_000_000;
   private static int IO_MILLISECONDS = 5;
 
+  // try to run with -Xmx16M
   public static void main(String[] args) throws Exception {
     LOGGER.debug("Started");
 

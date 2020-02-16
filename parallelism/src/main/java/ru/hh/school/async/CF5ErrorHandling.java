@@ -12,17 +12,18 @@ public class CF5ErrorHandling {
 
     CompletableFuture<String> promise = new CompletableFuture<>();
 
-    promise
-      .thenApply(CF5ErrorHandling::logging)
-      .thenApply(CF5ErrorHandling::throwing)
-      .thenApply(CF5ErrorHandling::changing) // skipped
-      .thenApply(CF5ErrorHandling::logging) // skipped
-      .exceptionally(CF5ErrorHandling::handle)
-      .thenApply(CF5ErrorHandling::logging);
+    CompletableFuture<String> promiseWithModifiers = promise.thenApply(CF5ErrorHandling::logging)
+        .thenApply(CF5ErrorHandling::throwing)
+        .thenApply(CF5ErrorHandling::changing) // skipped
+        .thenApply(CF5ErrorHandling::logging) // skipped
+        .exceptionally(CF5ErrorHandling::handle) // try to comment this
+        .thenApply(CF5ErrorHandling::logging);
 
     promise.complete("data");
 
-    promise.join();
+    // what if we .join() on promise?
+
+    promiseWithModifiers.join();
 
 //  data: *--*       *--*
 //               \     /
