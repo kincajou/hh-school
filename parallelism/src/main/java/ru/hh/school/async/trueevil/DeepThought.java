@@ -42,7 +42,7 @@ public class DeepThought {
       LOGGER.debug("Gonna do some calculations");
       sleepUninterruptibly(1, SECONDS);
       promise.complete(ANSWERS.getOrDefault(question, "I don't know"));
-      LOGGER.debug("Now i'm free to continue do nothing");
+      LOGGER.debug("Now i'm free to continue doing nothing");
     }
   }
 
