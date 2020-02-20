@@ -16,7 +16,6 @@ public class CF7Threads2 {
         .thenApply(s -> s + " едят пиццу")
         .thenAccept(LOGGER::debug);
 
-    // sleep?
     new Thread(() -> promise.complete("Витя"), "Thread 2").start();
 
     promiseWithModifiers.join();

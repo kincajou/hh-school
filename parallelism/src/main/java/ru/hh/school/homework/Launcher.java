@@ -43,7 +43,7 @@ public class Launcher {
   }
 
   private static void testCount() {
-    Path path = Path.of("d:\\projects\\hh-school\\parallelism\\src\\main\\java\\ru\\hh\\school\\parallelism\\Runner.java");
+    Path path = Path.of("d:\\projects\\work\\hh-school\\parallelism\\src\\main\\java\\ru\\hh\\school\\parallelism\\Runner.java");
     System.out.println(naiveCount(path));
   }
 
@@ -71,11 +71,13 @@ public class Launcher {
   private static long naiveSearch(String query) throws IOException {
     Document document = Jsoup //
       .connect("https://www.google.com/search?q=" + query) //
-      .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.110 Safari/537.36 Viv/2.3.1440.48") //
+      .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36") //
       .get();
 
-    Element divResultStats = document.select("div#resultStats").first();
-    return Long.valueOf(divResultStats.text().replaceAll("[^0-9]", ""));
+    Element divResultStats = document.select("div#slim_appbar").first();
+    String text = divResultStats.text();
+    String resultsPart = text.substring(0, text.indexOf('('));
+    return Long.parseLong(resultsPart.replaceAll("[^0-9]", ""));
   }
 
 }
