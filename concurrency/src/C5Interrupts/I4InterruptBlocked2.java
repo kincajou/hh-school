@@ -6,6 +6,7 @@ public class I4InterruptBlocked2 {
 
   // We should somehow react to InterruptedException.
   // It is often not easy. Consider complicated code with many deep methods throwing InterruptedException.
+  // https://www.yegor256.com/2015/10/20/interrupted-exception.html
 
   static class LongTask implements Runnable {
 
