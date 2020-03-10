@@ -8,36 +8,37 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class FinderWords {
-    private static Logger LOGGER = LoggerFactory.getLogger(FinderWords.class);
-    private static final ConcurrentHashMap<String, Long> wordsCount = new ConcurrentHashMap<>();
-    private static List<PopularWords> popularWordsList = new ArrayList<>();
-    private static ScanDirectory scanDirectory;
+    private static final Logger LOGGER = LoggerFactory.getLogger(FinderWords.class);
+    private static final ConcurrentHashMap<String, Long> WORDS_COUNT = new ConcurrentHashMap<>();
+    private static List<PopularWords> POPULAR_WORD_LIST = new ArrayList<>();
+    private static ScanDirectory SCAN_DIRECTORY;
 
     public FinderWords(Path path) {
-        scanDirectory = new ScanDirectory(path);
+        SCAN_DIRECTORY = new ScanDirectory(path);
     }
 
     public void execute() throws IOException {
-        popularWordsList = getPopularWords();
+        POPULAR_WORD_LIST = getPopularWords();
 
-        popularWordsList.parallelStream()
+        POPULAR_WORD_LIST.parallelStream()
                 .flatMap(topWords -> topWords.getWords().stream())
-                .filter(word -> !wordsCount.containsKey(word))
-                .forEach(word -> wordsCount.put(word, getInternetCounts(word)));
+                .filter(word -> !WORDS_COUNT.containsKey(word))
+                .forEach(word -> WORDS_COUNT.put(word, getInternetCounts(word)));
     }
 
     public void print() {
-        popularWordsList.parallelStream()
+        POPULAR_WORD_LIST.parallelStream()
                 .forEach(this::printResults);
     }
 
     private List<PopularWords> getPopularWords() throws IOException {
-        return scanDirectory.getDirectories().parallelStream()
-                .map(scanDirectory::getPopularWords)
+        return SCAN_DIRECTORY.getDirectories().parallelStream()
+                .map(SCAN_DIRECTORY::getPopularWords)
                 .filter(words -> !words.getWords().isEmpty())
                 .collect(Collectors.toList());
     }
@@ -48,7 +49,7 @@ public class FinderWords {
 
     private void printResults(PopularWords popularWords) {
         for (String word : popularWords.getWords()) {
-            LOGGER.info("Dir: {}, Word: {}, Results: {}", popularWords.getDirectory(), word, wordsCount.get(word));
+            LOGGER.info("Dir: {}, Word: {}, Results: {}", popularWords.getDirectory(), word, WORDS_COUNT.get(word));
         }
     }
 }

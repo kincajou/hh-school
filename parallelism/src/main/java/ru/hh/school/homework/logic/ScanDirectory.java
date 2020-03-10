@@ -13,23 +13,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.StreamSupport;
 
 import static java.util.Comparator.reverseOrder;
 import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 import static ru.hh.school.homework.logic.SimpleWordCounter.naiveCount;
 
 public class ScanDirectory {
-    private static Path dirPath;
-    private static Logger LOGGER = LoggerFactory.getLogger(ScanDirectory.class);
+    private static Path DIRECTORY_PATH;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScanDirectory.class);
 
     public ScanDirectory(Path path) {
-        dirPath = path;
+        DIRECTORY_PATH = path;
     }
 
     //метод получает все директории с учетом вложенных
     public List<Path> getDirectories() throws IOException {
-        return Files.walk(dirPath)
+        return Files.walk(DIRECTORY_PATH)
                 .filter(path -> Files.isDirectory(path))
                 .collect(toList());
     }
@@ -59,14 +61,11 @@ public class ScanDirectory {
             return Collections.EMPTY_MAP;
         }
     }
-    //счет популярных слов и создание словаря
-    private Map<String, Long> makeWordCounts(DirectoryStream<Path> stream) {
-        Map<String, Long> wordCounts = new HashMap<>();
-        for (Path pathFile : stream) {
-            for (Entry<String, Long> entry : naiveCount(pathFile).entrySet()) {
-                wordCounts.merge(entry.getKey(), entry.getValue(), Long::sum);
-            }
-        }
-        return wordCounts;
+    // создание словаря популярных слов для папки
+    private Map<String, Long> makeWordCounts(DirectoryStream<Path> directoryStream) {
+        return  StreamSupport.stream(directoryStream.spliterator(), true)
+                .map(SimpleWordCounter::naiveCount)
+                .flatMap(m -> m.entrySet().stream())
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, Long::sum));
     }
 }
