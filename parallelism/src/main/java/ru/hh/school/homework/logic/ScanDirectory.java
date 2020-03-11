@@ -9,7 +9,6 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -19,19 +18,18 @@ import static java.util.Comparator.reverseOrder;
 import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
-import static ru.hh.school.homework.logic.SimpleWordCounter.naiveCount;
 
 public class ScanDirectory {
-    private static Path DIRECTORY_PATH;
+    private Path directoryPath;
     private static final Logger LOGGER = LoggerFactory.getLogger(ScanDirectory.class);
 
     public ScanDirectory(Path path) {
-        DIRECTORY_PATH = path;
+        directoryPath = path;
     }
 
     //метод получает все директории с учетом вложенных
     public List<Path> getDirectories() throws IOException {
-        return Files.walk(DIRECTORY_PATH)
+        return Files.walk(directoryPath)
                 .filter(path -> Files.isDirectory(path))
                 .collect(toList());
     }

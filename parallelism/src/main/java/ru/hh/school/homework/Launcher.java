@@ -28,7 +28,6 @@ public class Launcher {
     Path path = Path.of(directory);
     FinderWords findWord = new FinderWords(path);
     findWord.execute();
-    findWord.print();
     LOGGER.info("{} ms", currentTimeMillis() - start);
   }
 
