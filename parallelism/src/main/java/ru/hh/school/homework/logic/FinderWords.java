@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class FinderWords {
@@ -23,7 +24,7 @@ public class FinderWords {
         Map<String, Long> wordsCount = popularWordsList.parallelStream()
                 .flatMap(topWords -> topWords.getWords().stream())
                 .distinct()
-                .collect(Collectors.toConcurrentMap(word->word, this::getInternetCounts));
+                .collect(Collectors.toConcurrentMap(Function.identity(), this::getInternetCounts));
         print(popularWordsList, wordsCount);
     }
 
