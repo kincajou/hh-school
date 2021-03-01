@@ -44,8 +44,8 @@ public class S5ThreadConfinementLocal {
       // no shared state here
       ThreadConfinementTask task1 = new ThreadConfinementTask(iterations / numOfThreads);
       ThreadConfinementTask task2 = new ThreadConfinementTask(iterations / numOfThreads);
-      Thread thread1 = new Thread(task1, "thread1");
-      Thread thread2 = new Thread(task2, "thread2");
+      Thread thread1 = new Thread(task1, "Task thread 1");
+      Thread thread2 = new Thread(task2, "Task thread 2");
       thread1.start();
       thread2.start();
       thread1.join();
@@ -55,8 +55,8 @@ public class S5ThreadConfinementLocal {
 
       long duration = currentTimeMillis() - start;
       System.out.println(duration + " ms, " + actualIterations + " iterations");
-      // will it work faster or slower than the previous code?
 
+      // will it work faster or slower than the previous code?
     }
   }
 }

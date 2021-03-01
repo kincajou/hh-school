@@ -29,7 +29,7 @@ public class T1ThreadCost {
       int blackHole = 0;
       for (int i=0; i<iterations; i++) {
         SmallTask task = new SmallTask();
-        Thread thread = new Thread(task, "thread1");
+        Thread thread = new Thread(task, "Task thread");
         thread.start();
         thread.join();
         blackHole += task.blackHole;
@@ -37,8 +37,7 @@ public class T1ThreadCost {
 
       long duration = currentTimeMillis() - start;
       float taskDuration = (float) duration / iterations;
-      System.out.println(duration + " ms / " + iterations + " tasks = " + taskDuration + " ms / task, " + blackHole);
+      System.out.println(duration + " ms / " + iterations + " tasks = " + taskDuration + " ms / task, blackhole: " + blackHole);
     }
-
   }
 }

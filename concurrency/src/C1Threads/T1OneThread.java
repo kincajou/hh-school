@@ -26,7 +26,7 @@ public class T1OneThread {
       // In this and other examples we will print 'black hole' to console
       // in order to show that we need the result of the computation,
       // so JIT does not throw the computation away.
-      System.out.println(duration + " ms, " + task.getBlackHole());
+      System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
     }
 
   }

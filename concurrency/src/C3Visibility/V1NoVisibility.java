@@ -30,7 +30,7 @@ public class V1NoVisibility {
     long start = currentTimeMillis();
 
     NoVisibilityTask task = new NoVisibilityTask(iterations);
-    Thread thread = new Thread(task, "thread1");
+    Thread thread = new Thread(task, "Task thread");
     thread.start();
 
     while (true) {
@@ -52,7 +52,6 @@ public class V1NoVisibility {
     }
 
     long duration = currentTimeMillis() - start;
-    System.out.println(duration + " ms, " + task.getBlackHole());
-
+    System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
   }
 }

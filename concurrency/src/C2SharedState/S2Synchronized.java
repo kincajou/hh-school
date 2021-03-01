@@ -43,15 +43,16 @@ public class S2Synchronized {
       long start = currentTimeMillis();
 
       SynchronizedTask task = new SynchronizedTask(iterations / numOfThreads);
-      Thread thread1 = new Thread(task, "thread1");
-      Thread thread2 = new Thread(task, "thread2");
+      Thread thread1 = new Thread(task, "Task thread 1");
+      Thread thread2 = new Thread(task, "Task thread 2");
       thread1.start();
       thread2.start();
       thread1.join();
       thread2.join();
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, " + task.actualIterations + " iterations, " + task.getBlackHole());
+      System.out.println(duration + " ms, " + task.actualIterations + " iterations, blackhole: " + task.getBlackHole());
+
       // whats happening here:
       // - sync on monitor
       // - synchronized block resets cpu cache for 'actualIterations' to achieve coherency

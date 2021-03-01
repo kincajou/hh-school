@@ -61,6 +61,7 @@ public class W4LockCondition {
         try {
           string = singularQueue.consume();
         } catch (InterruptedException e) {
+          System.out.println("Consumer is interrupted, stopping");
           return;
         }
         System.out.println("Consumed " + string);

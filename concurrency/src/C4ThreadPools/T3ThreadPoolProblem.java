@@ -39,6 +39,5 @@ public class T3ThreadPoolProblem {
         start = currentTimeMillis();
       }
     }
-
   }
 }

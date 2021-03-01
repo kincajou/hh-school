@@ -17,6 +17,7 @@ public class T2SeveralThreads {
     int iterations = 1_000_000_000;
     // how much cores do we have?
     int numOfThreads = Runtime.getRuntime().availableProcessors();
+    System.out.println("num of threads: " + numOfThreads);
 
     while (true) {
       long start = currentTimeMillis();
@@ -24,7 +25,7 @@ public class T2SeveralThreads {
       Task task = new Task(iterations / numOfThreads); // not precise, but ok to show the idea
       List<Thread> threads = IntStream.range(0, numOfThreads)
         // NOTE: name your threads!
-          .mapToObj(i -> new Thread(task, "thread" + i))
+          .mapToObj(i -> new Thread(task, "Task thread " + i))
           .collect(toList());
       threads.forEach(Thread::start);
       for (Thread thread : threads) {
@@ -33,7 +34,7 @@ public class T2SeveralThreads {
       // can't restart thread
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, " + task.getBlackHole());
+      System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
     }
 
   }

@@ -34,7 +34,7 @@ public class V2VisibilityBySynchronized {
       long start = currentTimeMillis();
 
       SynchronizedTask task = new SynchronizedTask(iterations);
-      Thread thread = new Thread(task, "thread1");
+      Thread thread = new Thread(task, "Task thread");
       thread.start();
       while (true) {
         synchronized (task.monitor) {
@@ -46,8 +46,7 @@ public class V2VisibilityBySynchronized {
       }
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, " + task.getBlackHole());
+      System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
     }
-
   }
 }

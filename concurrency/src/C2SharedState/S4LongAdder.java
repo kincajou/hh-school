@@ -35,17 +35,17 @@ public class S4LongAdder {
       long start = currentTimeMillis();
 
       LongAdderTask task = new LongAdderTask(iterations / numOfThreads);
-      Thread thread1 = new Thread(task, "thread1");
-      Thread thread2 = new Thread(task, "thread2");
+      Thread thread1 = new Thread(task, "Task thread 1");
+      Thread thread2 = new Thread(task, "Task thread 2");
       thread1.start();
       thread2.start();
       thread1.join();
       thread2.join();
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, " + task.actualIterations.intValue() + " iterations, " + task.getBlackHole());
-      // will it work faster or slower?
+      System.out.println(duration + " ms, " + task.actualIterations.intValue() + " iterations, blackhole: " + task.getBlackHole());
 
+      // will it work faster or slower?
     }
   }
 }

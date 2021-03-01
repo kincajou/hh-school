@@ -28,14 +28,14 @@ public class S1SharedState {
     int numOfThreads = 2;
 
     SharedStateTask task = new SharedStateTask(iterations / numOfThreads);
-    Thread thread1 = new Thread(task, "thread1");
-    Thread thread2 = new Thread(task, "thread2");
+    Thread thread1 = new Thread(task, "Task thread 1");
+    Thread thread2 = new Thread(task, "Task thread 2");
     thread1.start();
     thread2.start();
     thread1.join();
     thread2.join();
-    System.out.println("Expected " + iterations + ", got " + task.actualIterations + ", " + task.getBlackHole());
-    // how much do we get in output?
+    System.out.println("Expected " + iterations + ", got " + task.actualIterations + ", blackhole: " + task.getBlackHole());
 
+    // how much do we get in output?
   }
 }

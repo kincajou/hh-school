@@ -33,8 +33,8 @@ public class S6ThreadConfinement2 {
 
       ThreadConfinementTask task1 = new ThreadConfinementTask(iterations / numOfThreads);
       ThreadConfinementTask task2 = new ThreadConfinementTask(iterations / numOfThreads);
-      Thread thread1 = new Thread(task1, "thread1");
-      Thread thread2 = new Thread(task2, "thread2");
+      Thread thread1 = new Thread(task1, "Task thread 1");
+      Thread thread2 = new Thread(task2, "Task thread 2");
       thread1.start();
       thread2.start();
       thread1.join();
@@ -43,7 +43,7 @@ public class S6ThreadConfinement2 {
       int blackHole = task1.getBlackHole() + task2.getBlackHole();
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, " + actualIterations + " iterations, " + blackHole);
+      System.out.println(duration + " ms, " + actualIterations + " iterations, blackhole: " + blackHole);
 
       // why the results are unstable?
     }

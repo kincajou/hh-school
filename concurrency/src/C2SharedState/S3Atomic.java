@@ -10,11 +10,13 @@ public class S3Atomic {
 
   // AtomicInteger uses Compare and Swap (CAS)
   // Roughly:
-  //
-  // do {
-  //   currentVal = getCurrentVal();
-  //   actualVal = hardware.compareAndSwap(currentVal, currentVal+1);
-  // } while (actualVal != currentVal);
+
+  //  for (;;) {
+  //    int current = get();
+  //    int next = current + 1;
+  //    if (hardware.compareAndSwap(current, next))
+  //      return next;
+  //  }
   //
   // Great on low contented threads, but bad on high.
 
@@ -43,17 +45,17 @@ public class S3Atomic {
       long start = currentTimeMillis();
 
       AtomicTask task = new AtomicTask(iterations / numOfThreads);
-      Thread thread1 = new Thread(task, "thread1");
-      Thread thread2 = new Thread(task, "thread2");
+      Thread thread1 = new Thread(task, "Task thread 1");
+      Thread thread2 = new Thread(task, "Task thread 2");
       thread1.start();
       thread2.start();
       thread1.join();
       thread2.join();
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, " + task.actualIterations.get() + " iterations, " + task.getBlackHole());
-      // will this work better or worse than synchronized block?
+      System.out.println(duration + " ms, " + task.actualIterations.get() + " iterations, blackhole: " + task.getBlackHole());
 
+      // will this work better or worse than synchronized block?
     }
   }
 }

@@ -33,7 +33,7 @@ public class V3VisibilityByVolatile {
       long start = currentTimeMillis();
 
       VolatileTask task = new VolatileTask(iterations);
-      Thread thread = new Thread(task, "thread1");
+      Thread thread = new Thread(task, "Task thread");
       thread.start();
       while (true) {
         if (task.actualIterations >= iterations) {
@@ -43,8 +43,7 @@ public class V3VisibilityByVolatile {
       }
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, " + task.getBlackHole());
+      System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
     }
-
   }
 }

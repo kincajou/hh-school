@@ -48,7 +48,7 @@ public class T2ThreadPool {
 
       long duration = currentTimeMillis() - start;
       float taskDuration = (float) duration / iterations;
-      System.out.println(duration + " ms / " + iterations + " tasks = " + taskDuration + " ms / task, " + blackHole);
+      System.out.println(duration + " ms / " + iterations + " tasks = " + taskDuration + " ms / task, blackhole: " + blackHole);
     }
 
   }
