@@ -1,6 +1,7 @@
 package ru.hh.school.async;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -8,7 +9,7 @@ public class CF5ErrorHandling {
 
   private static final Logger LOGGER = getLogger(CF5ErrorHandling.class);
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ExecutionException, InterruptedException {
 
     CompletableFuture<String> promise = new CompletableFuture<>();
 
@@ -23,7 +24,7 @@ public class CF5ErrorHandling {
 
     // what if we .join() on promise?
 
-    promiseWithModifiers.join();
+    promiseWithModifiers.get();
 
 //  data: *--*       *--*
 //               \     /

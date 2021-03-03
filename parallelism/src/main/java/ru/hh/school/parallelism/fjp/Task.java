@@ -1,11 +1,7 @@
 package ru.hh.school.parallelism.fjp;
 
-import java.util.List;
 import java.util.concurrent.RecursiveTask;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 import ru.hh.school.parallelism.Runner;
-import static java.util.stream.Collectors.toList;
 
 public class Task extends RecursiveTask<Long> {
 
@@ -18,7 +14,7 @@ public class Task extends RecursiveTask<Long> {
   @Override
   protected Long compute() {
 
-    if (tasks > 8) {
+    if (tasks > 1) {
       int part1, part2;
       if (tasks % 2 == 0) {
         part1 = tasks / 2;
@@ -32,12 +28,7 @@ public class Task extends RecursiveTask<Long> {
       return doFork(part1, part2);
     }
 
-    List<RecursiveTask<Long>> tasks = IntStream.range(0, this.tasks)
-      .boxed()
-      .flatMap(i -> Stream.of(new CPUTask(), new IOTask()))
-      .collect(toList());
-
-    return invokeAll(tasks).stream().mapToLong(RecursiveTask::join).sum();
+    return Runner.performCPUJob() + Runner.performIOJob();
   }
 
   private long doFork(int part1, int part2) {
@@ -47,18 +38,6 @@ public class Task extends RecursiveTask<Long> {
     invokeAll(task1, task2);
 
     return task1.join() + task2.join();
-  }
-
-  public class CPUTask extends RecursiveTask<Long> {
-    protected Long compute() {
-      return Runner.performCPUJob();
-    }
-  }
-
-  public class IOTask extends RecursiveTask<Long> {
-    protected Long compute() {
-      return Runner.performIOJob();
-    }
   }
 
 }
