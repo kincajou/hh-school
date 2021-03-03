@@ -23,6 +23,8 @@ public class T1ThreadCost {
 
     int iterations = 100_000;
 
+    // no concurrency here - it is intended!
+
     while (true) {
       long start = currentTimeMillis();
 

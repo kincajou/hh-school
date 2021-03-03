@@ -25,6 +25,8 @@ public class T2ThreadPool {
 
     int iterations = 100_000;
 
+    // again, no concurrency here (single thread in executor) - it is intended!
+
     while (true) {
       long start = currentTimeMillis();
 
@@ -42,9 +44,12 @@ public class T2ThreadPool {
       // stops accepting new tasks
       executorService.shutdown();
       // waits until all running tasks finish or timeout happens
-      executorService.awaitTermination(10L, TimeUnit.MILLISECONDS);
-      // interrupts all running threads, still no guarantee that everything finished
-      executorService.shutdownNow();
+      boolean finished = executorService.awaitTermination(10L, TimeUnit.MILLISECONDS);
+
+      if (!finished) {
+        // interrupts all running threads, still no guarantee that everything finished
+        executorService.shutdownNow();
+      }
 
       long duration = currentTimeMillis() - start;
       float taskDuration = (float) duration / iterations;

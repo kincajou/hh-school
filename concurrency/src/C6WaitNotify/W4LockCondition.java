@@ -10,7 +10,7 @@ public class W4LockCondition {
   // No point of using Lock and Condition for this particular task.
   // But look at other methods provided by these interfaces, for example Lock.tryLock(time, unit).
   // Also look through other synchronizers: Semaphore, CountDownLatch, CyclicBarrier, etc.
-  // https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html
+  // https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/concurrent/package-summary.html
 
   static class SingularQueue<T> implements Producer<T>, Consumer<T> {
 
