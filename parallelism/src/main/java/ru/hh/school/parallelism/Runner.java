@@ -1,12 +1,17 @@
 package ru.hh.school.parallelism;
 
 import com.google.common.util.concurrent.Uninterruptibles;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.openjdk.jmh.Main;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
 import ru.hh.school.parallelism.executor.ExecutorComputation;
@@ -19,16 +24,25 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 @Warmup(iterations = 1, time = 5)
 @Measurement(iterations = 3, time = 5)
 @BenchmarkMode(Mode.Throughput)
+@State(Scope.Benchmark)
 public class Runner extends Main {
 
   private static int CYCLES = 1_000;
   private static int CPU_CYCLES = 10_000;
-  private static int IO_MILLISECONDS = 1;
+  private static int IO_MILLISECONDS = 0;
 
   @Benchmark
   public void sequential(Blackhole blackhole) {
     blackhole.consume(new SequentialComputation().compute(CYCLES));
   }
+
+  public static ExecutorService EXECUTOR = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+  @TearDown
+  public void tearDown() {
+    EXECUTOR.shutdown();
+  }
+
 
   @Benchmark
   public void executor(Blackhole blackhole) throws InterruptedException {

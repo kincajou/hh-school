@@ -23,7 +23,7 @@ public class CF3ThenCompose {
 
   public static CompletableFuture<Integer> getLength(String data) {
     CompletableFuture<String> promise = new CompletableFuture<>();
-    CompletableFuture<Integer> result = promise.thenApply(string -> string.length());
+    CompletableFuture<Integer> result = promise.thenApply(String::length);
     promise.complete(data);
     return result;
   }
