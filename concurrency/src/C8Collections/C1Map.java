@@ -5,12 +5,13 @@ import static java.lang.System.currentTimeMillis;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 public class C1Map {
 
-  record CachedValue(int value) {
+  record CachedValue(int id, int value) {
   }
 
   private static final Map<Integer, CachedValue> CACHE = new HashMap<>();
@@ -25,8 +26,9 @@ public class C1Map {
 
     @Override
     protected void onIteration() {
-      int value = iteration.incrementAndGet();
-      CACHE.put(value, new CachedValue(value));
+      int id = iteration.incrementAndGet();
+      int value = ThreadLocalRandom.current().nextInt();
+      CACHE.put(id, new CachedValue(id, value));
     }
   }
 
@@ -44,7 +46,7 @@ public class C1Map {
       int value = iteration.incrementAndGet();
       CachedValue cachedValue = CACHE.get(value);
       if (cachedValue != null) {
-        blackhole += cachedValue.value + CACHE.size();
+        blackhole += cachedValue.value;
       }
     }
   }

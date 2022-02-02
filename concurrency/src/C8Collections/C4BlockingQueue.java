@@ -18,19 +18,7 @@ public class C4BlockingQueue {
 
   private static final BlockingQueue<TransferTask> TASKS = new ArrayBlockingQueue<>(1000);
 
-  private static Runnable createProcessingTask() {
-    return () -> {
-      try {
-        while (true) {
-          TASKS.take().perform();
-        }
-      }
-      catch (InterruptedException e) {
-        System.out.println("Interrupted");
-      }
-    };
-  }
-
+  // add new task to queue
   private static Runnable createTransferTask(Wallet fromWallet, Wallet toWallet, int money) {
     return () -> {
       try {
@@ -41,6 +29,20 @@ public class C4BlockingQueue {
           if (i % 100 == 0) {
             System.out.printf("%s made %d transfers, %d tasks pending%n", Thread.currentThread().getName(), i, TASKS.size());
           }
+        }
+      }
+      catch (InterruptedException e) {
+        System.out.println("Interrupted");
+      }
+    };
+  }
+
+  // take task from queue and perform it
+  private static Runnable createProcessingTask() {
+    return () -> {
+      try {
+        while (true) {
+          TASKS.take().perform();
         }
       }
       catch (InterruptedException e) {

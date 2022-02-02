@@ -5,14 +5,16 @@ import static java.lang.System.currentTimeMillis;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 public class C3ConcurrentHashMap {
 
-  record CachedValue(int value) {
+  record CachedValue(int id, int value) {
   }
 
+  // same code as previous example except this string
   private static final Map<Integer, CachedValue> CACHE = new ConcurrentHashMap<>();
 
   // use ConcurrentSkipListMap as substitute for SortedMap
@@ -29,8 +31,9 @@ public class C3ConcurrentHashMap {
 
     @Override
     protected void onIteration() {
-      int value = iteration.incrementAndGet();
-      CACHE.put(value, new CachedValue(value));
+      int id = iteration.incrementAndGet();
+      int value = ThreadLocalRandom.current().nextInt();
+      CACHE.put(id, new CachedValue(id, value));
     }
   }
 
@@ -48,7 +51,7 @@ public class C3ConcurrentHashMap {
       int value = iteration.incrementAndGet();
       CachedValue cachedValue = CACHE.get(value);
       if (cachedValue != null) {
-        blackhole += cachedValue.value + CACHE.size();
+        blackhole += cachedValue.value;
       }
     }
   }
