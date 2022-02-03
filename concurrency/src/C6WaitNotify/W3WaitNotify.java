@@ -46,7 +46,7 @@ public class W3WaitNotify {
 
     Runnable consumerTask = () -> {
       while(!Thread.currentThread().isInterrupted()) {
-        String string = null;
+        String string;
         try {
           string = singularQueue.consume();
         } catch (InterruptedException e) {

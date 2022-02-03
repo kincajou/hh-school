@@ -1,7 +1,6 @@
 package C2SharedState;
 
 import common.Task;
-
 import static java.lang.System.currentTimeMillis;
 
 public class S2Synchronized {
@@ -53,7 +52,7 @@ public class S2Synchronized {
       long duration = currentTimeMillis() - start;
       System.out.println(duration + " ms, " + task.actualIterations + " iterations, blackhole: " + task.getBlackHole());
 
-      // whats happening here:
+      // what's happening here:
       // - sync on monitor
       // - synchronized block resets cpu cache for 'actualIterations' to achieve coherency
     }

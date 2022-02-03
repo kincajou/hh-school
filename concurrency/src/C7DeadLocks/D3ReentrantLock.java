@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class D3ReentrantLock {
 
-  // What if synchronized blocks are in completely different methods and we do not even know where?
+  // What if synchronized blocks are in completely different methods, and we do not even know where?
   // We can use Lock.tryLock(time)
 
   static class Wallet {

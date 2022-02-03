@@ -1,13 +1,12 @@
 package C2SharedState;
 
 import common.Task;
-
 import static java.lang.System.currentTimeMillis;
 
 public class S6ThreadConfinement2 {
 
   // Uses Task that prevents loop unrolling.
-  // TODO: not stable results
+  // TODO: unstable results
 
   static class ThreadConfinementTask extends Task {
 

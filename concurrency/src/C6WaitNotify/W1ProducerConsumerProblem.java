@@ -2,8 +2,8 @@ package C6WaitNotify;
 
 public class W1ProducerConsumerProblem {
 
-  // We saw BlockingQueue in front of a thread pool.
-  // Blocking queue is a common tool to decouple producers from consumers.
+  // We used BlockingQueue backing a thread pool.
+  // BlockingQueue is a common tool to decouple producers from consumers.
   // Consider a simplified implementation.
   // Any problems?
 

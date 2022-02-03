@@ -57,7 +57,7 @@ public class W4LockCondition {
 
     Runnable consumerTask = () -> {
       while(!Thread.currentThread().isInterrupted()) {
-        String string = null;
+        String string;
         try {
           string = singularQueue.consume();
         } catch (InterruptedException e) {

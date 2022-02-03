@@ -1,21 +1,18 @@
 package C1Threads;
 
 import common.Task;
-
+import static java.lang.System.currentTimeMillis;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static java.lang.System.currentTimeMillis;
-import static java.util.stream.Collectors.toList;
-
 public class T2SeveralThreads {
 
-  // Several threads does the same amount of work in parallel.
+  // Several threads do the same amount of work in parallel.
 
   public static void main(String[] args) throws InterruptedException {
 
     int iterations = 1_000_000_000;
-    // how much cores do we have?
+    // how many cores do we have?
     int numOfThreads = Runtime.getRuntime().availableProcessors();
     System.out.println("num of threads: " + numOfThreads);
 
@@ -26,7 +23,7 @@ public class T2SeveralThreads {
       List<Thread> threads = IntStream.range(0, numOfThreads)
         // NOTE: name your threads!
           .mapToObj(i -> new Thread(task, "Task thread " + i))
-          .collect(toList());
+          .toList();
       threads.forEach(Thread::start);
       for (Thread thread : threads) {
         thread.join();

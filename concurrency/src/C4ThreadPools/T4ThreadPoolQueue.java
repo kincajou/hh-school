@@ -1,13 +1,12 @@
 package C4ThreadPools;
 
+import static java.lang.System.currentTimeMillis;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import static java.lang.System.currentTimeMillis;
 
 public class T4ThreadPoolQueue {
 
@@ -16,7 +15,7 @@ public class T4ThreadPoolQueue {
   //
   // For real time site requests we use:
   // - large thread pools (100-1000 threads)
-  // - zero length queue (many threads is a sort of a queue itself, it is bad to let requests sour in a long queue)
+  // - zero length queue (many threads is a sort of queue itself, it is bad to let requests sour in a long queue)
   // - "fail fast on reject" behaviour
   //
   // For offline tasks we use:
