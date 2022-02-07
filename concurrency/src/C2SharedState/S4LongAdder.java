@@ -46,6 +46,9 @@ public class S4LongAdder {
       System.out.println(duration + " ms, " + task.actualIterations.intValue() + " iterations, blackhole: " + task.getBlackHole());
 
       // will it work faster or slower?
+
+      // - this will be faster than AtomicInteger, but still not very good for heavy contention. While buckets in LongAdder allow to spread the load
+      // between different writing threads more effectively, with many threads it will still perform poorly.
     }
   }
 }

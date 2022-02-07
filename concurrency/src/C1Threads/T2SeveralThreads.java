@@ -13,6 +13,7 @@ public class T2SeveralThreads {
 
     int iterations = 1_000_000_000;
     // how many cores do we have?
+    // number of threads = number of cpu cores, multiply by 2 if hyperthreading is available
     int numOfThreads = Runtime.getRuntime().availableProcessors();
     System.out.println("num of threads: " + numOfThreads);
 

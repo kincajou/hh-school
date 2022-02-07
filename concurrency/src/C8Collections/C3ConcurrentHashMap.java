@@ -84,5 +84,7 @@ public class C3ConcurrentHashMap {
     long duration = currentTimeMillis() - start;
 
     System.out.printf("Cache filled in %dms, size is %d, blackhole is %d%n", duration, CACHE.size(), readingTask.blackhole); // should be 800_000
+
+    // - ConcurrentHashMap both gives correct results and is much faster than synchronized map.
   }
 }

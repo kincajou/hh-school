@@ -36,5 +36,8 @@ public class I1InterruptThread {
     System.out.println("Thread stopped, " + longTask.blackHole);
     // will it stop?
 
+    // - it won't stop because we are not doing any blocking operations so thread.interrupt() just sets the interrupted flag on that thread.
+    // Since we are not checking it, thread will continue working.
+
   }
 }

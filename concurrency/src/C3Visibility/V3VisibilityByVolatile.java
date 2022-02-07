@@ -46,4 +46,12 @@ public class V3VisibilityByVolatile {
       System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
     }
   }
+
+  // - this example with volatile is much faster than previous example with synchronized.
+  // Access to volatile variable is always performed in main memory, bypassing all CPU caches and that allows it to always have actual value.
+  // This is much slower and since java 1.5 volatile variable also works as barrier - making cache coherency for all other thread variables.
+  // Barrier also dictates that runtime compilation can't change order of operations before and after working with volatile.
+  //
+  // But volatile is not atomic - ++ operation has to first read and then write incremented value. There can be another thread that
+  // changes the value between those two operations, making it inconsistent.
 }

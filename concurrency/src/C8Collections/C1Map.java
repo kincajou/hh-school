@@ -11,11 +11,13 @@ import java.util.stream.IntStream;
 
 public class C1Map {
 
+  // just a value holder object
   record CachedValue(int id, int value) {
   }
 
   private static final Map<Integer, CachedValue> CACHE = new HashMap<>();
 
+  // this task writes into cache
   static class WritingTask extends Task {
 
     private final AtomicInteger iteration = new AtomicInteger();
@@ -32,6 +34,7 @@ public class C1Map {
     }
   }
 
+  // this task attempts to read from cache, using its own id generator
   static class ReadingTask extends Task {
 
     private final AtomicInteger iteration = new AtomicInteger();
@@ -79,5 +82,9 @@ public class C1Map {
     long duration = currentTimeMillis() - start;
 
     System.out.printf("Cache filled in %dms, size is %d, blackhole is %d%n", duration, CACHE.size(), readingTask.blackhole); // should be 800_000
+
+    // - HashMap is not thread-safe, multiple threads writing values into the same bucket will overwrite each other, so the resulting size will be
+    // less than expected. Note the execution time.
+
   }
 }

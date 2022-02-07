@@ -34,5 +34,7 @@ public class I2InterruptCPUIntensive {
     System.out.println("Thread stopped, " + longTask.blackHole);
     // will it stop?
 
+    // - this will stop properly.
+
   }
 }

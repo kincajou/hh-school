@@ -38,8 +38,8 @@ public class T4ThreadPoolQueue {
 
     int maxQueueSize = 100;
     BlockingQueue<Runnable> blockingQueue = new ArrayBlockingQueue<>(maxQueueSize);
-    Executor executor =
-        new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, blockingQueue);
+    // create executor manually with limited queue
+    Executor executor = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, blockingQueue);
 
     int requests = 0;
     int rejects = 0;
@@ -61,4 +61,7 @@ public class T4ThreadPoolQueue {
       }
     }
   }
+
+  // - there are more rejects than processed requests, and it is expected. You can increase number of working threads in threadpool
+  // to decrease the number of rejects.
 }

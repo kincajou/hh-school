@@ -49,4 +49,8 @@ public class V2VisibilityBySynchronized {
       System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
     }
   }
+
+  // - this example works correctly but again, much slower.
+  // Each time "Task thread" wants to increment, it has to hold and then release the monitor which adds alot of overhead.
+  // Meanwhile, main thread slows this process even more by holding monitor each 10ms to read current value.
 }

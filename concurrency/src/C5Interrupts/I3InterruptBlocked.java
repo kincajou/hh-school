@@ -18,6 +18,8 @@ public class I3InterruptBlocked {
       while (!Thread.currentThread().isInterrupted()) {
         blackHole += random.nextInt();
         try {
+          // this is blocking call (it throws InterruptedException)
+          // another example of blocking call is reading from a socket or waiting for future to return result.
           Thread.sleep(1000L);
         } catch (InterruptedException e) {
           System.out.println(Thread.currentThread().getName() + " got " + e);
@@ -40,6 +42,8 @@ public class I3InterruptBlocked {
 
     System.out.println("Thread stopped, " + longTask.blackHole);
     // will it stop?
+
+    // - this example won't stop because when we catch InterruptedException, the interrupted flag on the thread is reset.
 
   }
 }

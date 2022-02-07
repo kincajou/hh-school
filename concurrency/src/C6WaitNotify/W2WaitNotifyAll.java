@@ -16,7 +16,7 @@ public class W2WaitNotifyAll {
     public synchronized void produce(T task) throws InterruptedException {
       // why this cycle?
       while (this.task != null) {
-        // can be called in synchronized block only
+        // can be called in synchronized block only otherwise you will get IllegalMonitorStateException
         wait();
       }
       this.task = task;
@@ -32,6 +32,7 @@ public class W2WaitNotifyAll {
       T task = this.task;
       this.task = null;
       // can we use notify() here?
+      // - we can't because we won't know what thread will be notified
       notifyAll();
       return task;
     }
@@ -64,4 +65,8 @@ public class W2WaitNotifyAll {
     consumerThread.join();
 
   }
+
+  // - this code works but it too has problems. NotifyAll will attempt to wake up all threads (both producers and consumers) that "wait" on monitor,
+  // so they will all do another cycle before going into wait again. If there are many threads that can be very suboptimal.
+
 }

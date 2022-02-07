@@ -19,6 +19,7 @@ public class T1OneThread {
     while (true) {
       long start = currentTimeMillis();
 
+      // check the Task class implementation
       Task task = new Task(iterations);
       task.run();
 

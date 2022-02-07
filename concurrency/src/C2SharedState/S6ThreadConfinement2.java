@@ -45,6 +45,11 @@ public class S6ThreadConfinement2 {
       System.out.println(duration + " ms, " + actualIterations + " iterations, blackhole: " + blackHole);
 
       // why the results are unstable?
+
+      // - so, the thread confinement works much faster than any previous examples with shared state because there is no need to protect it
+      // each thread increments its own copy and then we add them and get the result
+      // the timings are unstable because there is a great overhead of creating and killing the threads and that makes garbage collector consume more CPU
+      // to even the results of each cycle we can place a hinting "System.gc();" after calculating blackhole
     }
   }
 }

@@ -81,5 +81,10 @@ public class C2SynchronizedMap {
     long duration = currentTimeMillis() - start;
 
     System.out.printf("Cache filled in %dms, size is %d, blackhole is %d%n", duration, CACHE.size(), readingTask.blackhole); // should be 800_000
+
+    // - we are using synchronized map - each method call is synchronized, so only one thread can use it at a time. The cache size is correct
+    // but execution is very slow.
+    // Use Collections.synchronizedMap if you are receiving instance of the same map from library that does not care about thread safety, but you need to
+    // work with it from different threads.
   }
 }

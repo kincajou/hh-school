@@ -52,6 +52,8 @@ public class S5ThreadConfinement {
       System.out.println(duration + " ms, " + actualIterations + " iterations");
 
       // will it work faster or slower?
+
+      // - it will be much faster but is not a fair example because JIT unrolled the loop
     }
   }
 }

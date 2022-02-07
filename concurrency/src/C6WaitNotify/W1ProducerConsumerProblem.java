@@ -58,5 +58,8 @@ public class W1ProducerConsumerProblem {
 
     // what are the problems here?
 
+    // - the program is perfectly correct, except that it eats up CPU in empty spin loops. This is very inefficient, that CPU can be used elsewhere.
+    // There is also a possible race condition if there was more than one producing thread.
+
   }
 }

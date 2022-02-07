@@ -22,14 +22,17 @@ public class W4LockCondition {
 
     @Override
     public void produce(T task) throws InterruptedException {
+      // this is a blocking call
       lock.lock();
       try {
         if (this.task != null) {
+          // this is a blocking call
           noTaskCondition.await();
         }
         this.task = task;
         taskReadyCondition.signal();
       } finally {
+        // we want to do this in finally block - if code in try block throws exception we still need to release the lock
         lock.unlock();
       }
     }
@@ -77,6 +80,8 @@ public class W4LockCondition {
 
     consumerThread.interrupt();
     consumerThread.join();
+
+    // - this code is simpler to understand because we are working with objects here, and is less error-prone.
 
   }
 }

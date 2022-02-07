@@ -3,6 +3,9 @@ package C8Collections;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+// Another example of working with wallets - this time we use BlockingQueue and 3 threads.
+// One thread executes the tasks in queue, other threads are generating those tasks.
+
 public class C4BlockingQueue {
 
   static class Wallet {
@@ -24,6 +27,8 @@ public class C4BlockingQueue {
       try {
         int i = 0;
         while (true) {
+          // this one blocks until there is enough space in queue
+          // another methods allow putting with timeout, or put immediately if there is enough space without blocking
           TASKS.put(new TransferTask(fromWallet, toWallet, money));
           i++;
           if (i % 100 == 0) {
@@ -42,6 +47,8 @@ public class C4BlockingQueue {
     return () -> {
       try {
         while (true) {
+          // this method also blocks, waiting until there is available element in queue
+          // other methods allow getting element with timeout or getting it if it is available without blockin
           TASKS.take().perform();
         }
       }

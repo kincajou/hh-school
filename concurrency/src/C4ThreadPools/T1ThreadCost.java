@@ -42,4 +42,6 @@ public class T1ThreadCost {
       System.out.println(duration + " ms / " + iterations + " tasks = " + taskDuration + " ms / task, blackhole: " + blackHole);
     }
   }
+
+  // - it works but very slowly - thread creation is expensive and GC does heavy work here
 }

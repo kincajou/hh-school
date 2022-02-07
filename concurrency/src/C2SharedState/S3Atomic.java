@@ -56,6 +56,11 @@ public class S3Atomic {
       System.out.println(duration + " ms, " + task.actualIterations.get() + " iterations, blackhole: " + task.getBlackHole());
 
       // will this work better or worse than synchronized block?
+
+      // - this will be faster than previous example, and is also simplier than synchronized blocks,
+      // but we can do better with another concurrent value storage.
+      // this example shows downside of AtomicInteger greatly since all it does is to create a heavy contention, and AtomicInteger
+      // performs poorly in heavy contended environment (many writes, few reads).
     }
   }
 }

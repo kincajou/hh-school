@@ -66,5 +66,6 @@ public class W3WaitNotify {
     consumerThread.interrupt();
     consumerThread.join();
 
+    // this is more optimized example, but it looks very complicated because of all those synchronized blocks, and it is easy to make a mistakes in such code.
   }
 }

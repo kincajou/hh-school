@@ -55,6 +55,9 @@ public class S2Synchronized {
       // what's happening here:
       // - sync on monitor
       // - synchronized block resets cpu cache for 'actualIterations' to achieve coherency
+
+      // - result is much slower but correct calculation - we will get expected number of iterations but our threads will not be running in parallel!
+      // while one thread acquires monitor, changes the field, then releases the monitor - another thread is waiting
     }
   }
 }

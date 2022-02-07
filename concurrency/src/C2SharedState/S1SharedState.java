@@ -37,5 +37,10 @@ public class S1SharedState {
     System.out.println("Expected " + iterations + ", got " + task.actualIterations + ", blackhole: " + task.getBlackHole());
 
     // how much do we get in output?
+
+    // - actualIterations field is a shared state between two different threads and is not protected against concurrent writes
+    // we will get about half of expected iterations because actualIterations field is overwritten continuously in unsafe manner
+    // each thread has its own copy of that variable in L1/L2/L3 CPU cache, and exactly that copy is incremented
+    // we have no barriers (places in code that do cache synchronization with main memory) here except non-obvious one in System.out.println and thread::join
   }
 }

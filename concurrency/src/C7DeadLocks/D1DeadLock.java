@@ -42,5 +42,11 @@ public class D1DeadLock {
     new Thread(wallet1to2Task, "1 to 2").start();
     new Thread(wallet2to1Task, "2 to 1").start();
 
+    // - this code will eventually deadlock. The cause is each thread attempts to lock monitor that is already locked by another thread.
+    // Once the example is running and deadlocked, let's see how it looks like in thread dump.
+    // - open terminal;
+    // - use 'jps' command to list all running java programs;
+    // - use 'jstack <pid>' command to generate thread dump and inspect it.
+
   }
 }

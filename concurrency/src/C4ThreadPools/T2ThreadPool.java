@@ -56,5 +56,7 @@ public class T2ThreadPool {
       System.out.println(duration + " ms / " + iterations + " tasks = " + taskDuration + " ms / task, blackhole: " + blackHole);
     }
 
+    // this example is much faster - no overhead of thread creation and GC work here is for reaping the tasks only.
+
   }
 }

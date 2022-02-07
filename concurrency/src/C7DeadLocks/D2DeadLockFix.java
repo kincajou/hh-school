@@ -6,7 +6,7 @@ import java.util.Comparator;
 public class D2DeadLockFix {
 
   // Let's always synchronize in particular order.
-  // What if wallet will be the same?
+  // What if wallet will be the same? - Java allows to synchronize multiple times on same monitor in same thread.
 
   static class Wallet {
     final int walletId;

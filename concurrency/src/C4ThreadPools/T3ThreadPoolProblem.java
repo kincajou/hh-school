@@ -17,6 +17,7 @@ public class T3ThreadPoolProblem {
       try {
         Thread.sleep(1L);
       } catch (InterruptedException e) {
+        // won't happen in this example
         Thread.currentThread().interrupt();
       }
     }
@@ -40,4 +41,8 @@ public class T3ThreadPoolProblem {
       }
     }
   }
+
+  // - we generate tasks much faster than we can process them. Look into Executors.newSingleThreadExecutor() implementation -
+  // it is just a wrapper around ThreadPoolExecutor constructor passing it unbounded LinkedBlockingQueue.
+  // So eventually we will drop with OutOfMemoryError because there is not enough memory for more task instances.
 }
