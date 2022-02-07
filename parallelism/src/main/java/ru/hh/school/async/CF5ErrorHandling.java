@@ -27,8 +27,8 @@ public class CF5ErrorHandling {
     promiseWithModifiers.get();
 
 //  data: *--*       *--*
-//               \     /
-//  error:       *--*
+//            \     /
+//  error:     *---*
 
   }
 
