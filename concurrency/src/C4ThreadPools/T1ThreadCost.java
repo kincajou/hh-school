@@ -1,8 +1,7 @@
 package C4ThreadPools;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import static java.lang.System.currentTimeMillis;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class T1ThreadCost {
 
@@ -29,7 +28,7 @@ public class T1ThreadCost {
       long start = currentTimeMillis();
 
       int blackHole = 0;
-      for (int i=0; i<iterations; i++) {
+      for (int i = 0; i < iterations; i++) {
         SmallTask task = new SmallTask();
         Thread thread = new Thread(task, "Task thread");
         thread.start();

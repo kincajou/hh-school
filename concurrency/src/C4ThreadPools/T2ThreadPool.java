@@ -33,7 +33,7 @@ public class T2ThreadPool {
       // See many other factory methods in the Executors class.
 
       int blackHole = 0;
-      for (int i=0; i<iterations; i++) {
+      for (int i = 0; i < iterations; i++) {
         SmallTask task = new SmallTask();
         Future<Integer> future = executorService.submit(task);
         blackHole += future.get();

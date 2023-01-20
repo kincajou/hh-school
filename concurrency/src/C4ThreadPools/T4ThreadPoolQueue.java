@@ -38,8 +38,7 @@ public class T4ThreadPoolQueue {
 
     int maxQueueSize = 100;
     BlockingQueue<Runnable> blockingQueue = new ArrayBlockingQueue<>(maxQueueSize);
-    Executor executor =
-        new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, blockingQueue);
+    Executor executor = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, blockingQueue);
 
     int requests = 0;
     int rejects = 0;

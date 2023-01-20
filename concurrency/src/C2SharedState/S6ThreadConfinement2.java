@@ -7,6 +7,8 @@ public class S6ThreadConfinement2 {
 
   // Uses Task that prevents loop unrolling.
   // TODO: unstable results
+  // -XX:+PrintCompilation
+  // https://stackoverflow.com/a/41154126
 
   static class ThreadConfinementTask extends Task {
 
@@ -45,6 +47,7 @@ public class S6ThreadConfinement2 {
       System.out.println(duration + " ms, " + actualIterations + " iterations, blackhole: " + blackHole);
 
       // why the results are unstable?
+      // why starting phase is unstable?
     }
   }
 }

@@ -1,7 +1,6 @@
 package C3Visibility;
 
 import common.Task;
-
 import static java.lang.System.currentTimeMillis;
 
 public class V1NoVisibility {
@@ -25,7 +24,7 @@ public class V1NoVisibility {
 
   public static void main(String[] args) {
 
-    int iterations = 10_000;
+    int iterations = 15_000;
 
     long start = currentTimeMillis();
 
