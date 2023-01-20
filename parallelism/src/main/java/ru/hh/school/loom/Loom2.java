@@ -19,8 +19,8 @@ public class Loom2 {
     latch.await();
   }
 
-  // Thread t = Thread.builder().virtual().task(() -> { ... }).start();
-  // Thread t = Thread.builder().virtual().task(() -> ...).build(); // not started
-  // ThreadFactory tf = Thread.builder().virtual().factory(); // thread factory
+  // Thread t = Thread.ofVirtual().start(() -> ...);
+  // Thread t = Thread.ofVirtual().unstarted(() -> ...); // not started
+  // ThreadFactory tf = Thread.ofVirtual().factory(); // thread factory
 
 }

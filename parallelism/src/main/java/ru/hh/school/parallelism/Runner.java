@@ -2,7 +2,6 @@ package ru.hh.school.parallelism;
 
 import com.google.common.util.concurrent.Uninterruptibles;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import org.openjdk.jmh.Main;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -10,6 +9,7 @@ import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 import ru.hh.school.parallelism.executor.ExecutorComputation;
 import ru.hh.school.parallelism.fjp.ForkJoinPoolComputation;
 import ru.hh.school.parallelism.sequential.SequentialComputation;
@@ -19,7 +19,11 @@ import ru.hh.school.parallelism.stream.ParallelStreamComputation;
 @Warmup(iterations = 1, time = 5)
 @Measurement(iterations = 3, time = 5)
 @BenchmarkMode(Mode.Throughput)
-public class Runner extends Main {
+public class Runner {
+
+  public static void main(String[] args) throws Exception {
+    new org.openjdk.jmh.runner.Runner(new OptionsBuilder().include(Runner.class.getSimpleName()).forks(1).build()).run();
+  }
 
   private static final int CYCLES = 1_000;
   private static final int CPU_CYCLES = 10_000;
