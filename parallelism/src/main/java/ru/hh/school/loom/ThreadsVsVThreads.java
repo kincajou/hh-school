@@ -23,26 +23,38 @@ public class ThreadsVsVThreads {
   }
 
   @Benchmark
-  public void platformThread() throws InterruptedException {
+  public void platformThreadCPU() throws InterruptedException {
     Thread thread = new Thread(ThreadsVsVThreads::performCPUJob);
     thread.start();
     thread.join();
   }
 
   @Benchmark
-  public void virtualThread() throws InterruptedException {
+  public void virtualThreadCPU() throws InterruptedException {
     Thread thread = Thread.startVirtualThread(ThreadsVsVThreads::performCPUJob);
     thread.join();
   }
 
-  public static long performCPUJob() {
-    Blackhole.consumeCPU(1000);
-    return 100;
+  @Benchmark
+  public void platformThreadIO() throws InterruptedException {
+    Thread thread = new Thread(ThreadsVsVThreads::performIOJob);
+    thread.start();
+    thread.join();
   }
 
-  public static long performIOJob() {
+  @Benchmark
+  public void virtualThreadIO() throws InterruptedException {
+    Thread thread = Thread.startVirtualThread(ThreadsVsVThreads::performIOJob);
+    thread.join();
+  }
+
+
+  public static void performCPUJob() {
+    Blackhole.consumeCPU(1000);
+  }
+
+  public static void performIOJob() {
     Uninterruptibles.sleepUninterruptibly(1, MILLISECONDS);
-    return 200;
   }
 
 }
