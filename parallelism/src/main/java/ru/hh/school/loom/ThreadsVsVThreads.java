@@ -1,7 +1,5 @@
 package ru.hh.school.loom;
 
-import com.google.common.util.concurrent.Uninterruptibles;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -23,38 +21,20 @@ public class ThreadsVsVThreads {
   }
 
   @Benchmark
-  public void platformThreadCPU() throws InterruptedException {
-    Thread thread = new Thread(ThreadsVsVThreads::performCPUJob);
+  public void platformThread() throws InterruptedException {
+    Thread thread = new Thread(ThreadsVsVThreads::consumeCycles);
     thread.start();
     thread.join();
   }
 
   @Benchmark
-  public void virtualThreadCPU() throws InterruptedException {
-    Thread thread = Thread.startVirtualThread(ThreadsVsVThreads::performCPUJob);
+  public void virtualThread() throws InterruptedException {
+    Thread thread = Thread.startVirtualThread(ThreadsVsVThreads::consumeCycles);
     thread.join();
   }
 
-  @Benchmark
-  public void platformThreadIO() throws InterruptedException {
-    Thread thread = new Thread(ThreadsVsVThreads::performIOJob);
-    thread.start();
-    thread.join();
-  }
-
-  @Benchmark
-  public void virtualThreadIO() throws InterruptedException {
-    Thread thread = Thread.startVirtualThread(ThreadsVsVThreads::performIOJob);
-    thread.join();
-  }
-
-
-  public static void performCPUJob() {
-    Blackhole.consumeCPU(1000);
-  }
-
-  public static void performIOJob() {
-    Uninterruptibles.sleepUninterruptibly(1, MILLISECONDS);
+  public static void consumeCycles() {
+    Blackhole.consumeCPU(10);
   }
 
 }
