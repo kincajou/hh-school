@@ -24,7 +24,7 @@ public class V1NoVisibility {
 
   public static void main(String[] args) {
 
-    int iterations = 15_000;
+    int iterations = 10_000;
 
     long start = currentTimeMillis();
 
