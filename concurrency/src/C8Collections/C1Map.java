@@ -56,7 +56,7 @@ public class C1Map {
   }
 
   private static void doCycle() throws InterruptedException {
-    int iterations = 100_000;
+    int iterations = 50_000;
 
     CACHE.clear();
 
