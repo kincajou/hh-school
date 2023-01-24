@@ -1,12 +1,12 @@
 package C3Visibility;
 
 import common.Task;
-
 import static java.lang.System.currentTimeMillis;
 
 public class V2VisibilityBySynchronized {
 
-  // Synchronized guarantees visibility of ALL variables (incl. i.e. blackhole) between threads that synchronize on the same monitor.
+  // Synchronized guarantees visibility of ALL variables (incl. i.e. blackhole) between
+  // threads that synchronize on the same monitor.
   // But it prevents parallel execution and is not cheap.
 
   static class SynchronizedTask extends Task {
