@@ -6,7 +6,6 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class NaiveSearchTask implements Runnable {

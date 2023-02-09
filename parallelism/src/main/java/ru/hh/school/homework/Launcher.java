@@ -1,8 +1,5 @@
 package ru.hh.school.homework;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import ru.hh.school.homework.common.NaiveSearchTask;
 
 import java.io.IOException;
@@ -21,7 +18,7 @@ import static java.util.Map.Entry.comparingByValue;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
-//9076 ms
+//400 ms
 public class Launcher {
   static ExecutorService executorService = Executors.newCachedThreadPool();
   public static void main(String[] args) throws IOException, InterruptedException {
@@ -48,6 +45,7 @@ public class Launcher {
     // test our naive methods:
     long start = currentTimeMillis();
     Path rootDirPath = Path.of("d:\\projects\\work\\hh-school\\concurrency\\src");
+    //Path rootDirPath = Path.of("E:\\GSG\\GRI\\frontend\\src\\");
     try (Stream<Path> stream = Files.walk(rootDirPath)) {
       Stream<Path> directoryStream = stream.filter(Files::isDirectory);
       long directorySearchDuration = currentTimeMillis() - start;
@@ -74,9 +72,6 @@ public class Launcher {
 
     long duration = currentTimeMillis() - start;
     System.out.printf("The task completed in %d ms", duration);
-
-    //testCount();
-    //testSearch();
   }
 
   private static void directoryCount(Path path) throws InterruptedException {
@@ -85,9 +80,7 @@ public class Launcher {
       Map<String, Long> result = stream
               .filter(Files::isRegularFile)
               .filter(file -> file.toString().endsWith(".java"))
-              //.peek(System.out::println)
               .map(file -> naiveCount(file))
-              //.peek(System.out::println)
               .map(Map::entrySet)
               .flatMap(Collection::stream)
               .collect(groupingBy(Entry::getKey, summarizingLong(Entry::getValue)))
@@ -108,19 +101,6 @@ public class Launcher {
     }
   }
 
-  private static void printCount(Path directoryPath, String wordToCount) {
-    try {
-      System.out.printf("%s - %s - %d\r\n", directoryPath, wordToCount, naiveSearch(wordToCount));
-    } catch(IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  private static void testCount() {
-    Path path = Path.of("d:\\projects\\work\\hh-school\\parallelism\\src\\main\\java\\ru\\hh\\school\\parallelism\\Runner.java");
-    System.out.println(naiveCount(path));
-  }
-
   private static Map<String, Long> naiveCount(Path path) {
     try {
       return Files.lines(path)
@@ -137,22 +117,5 @@ public class Launcher {
       throw new RuntimeException(e);
     }
   }
-
-  private static void testSearch() throws IOException {
-    System.out.println(naiveSearch("public"));
-  }
-
-  private static long naiveSearch(String query) throws IOException {
-    Document document = Jsoup //
-            .connect("https://www.google.com/search?q=" + query) //
-            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36") //
-            .get();
-
-    Element divResultStats = document.select("div#result-stats").first(); //div#slim_appbar div#result-stats
-    String text = divResultStats.text();
-    String resultsPart = text.substring(0, text.indexOf('('));
-    return Long.parseLong(resultsPart.replaceAll("[^0-9]", ""));
-  }
-
 }
 
