@@ -40,9 +40,7 @@ public class Launcher {
     //
     // Порядок результатов в консоли не обязательный.
     // При желании naiveSearch и naiveCount можно оптимизировать.
-
-
-    // test our naive methods:
+    
     long start = currentTimeMillis();
     Path rootDirPath = Path.of("d:\\projects\\work\\hh-school\\concurrency\\src");
     //Path rootDirPath = Path.of("E:\\GSG\\GRI\\frontend\\src\\");
