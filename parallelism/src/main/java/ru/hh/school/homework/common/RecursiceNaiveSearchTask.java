@@ -6,30 +6,32 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.concurrent.Callable;
+import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class NaiveSearchTask implements Runnable {
+public class RecursiceNaiveSearchTask extends RecursiveTask {
 
     private String query;
 
     private Path directoryPath;
 
-    public NaiveSearchTask(String query, Path directoryPath) {
+    public RecursiceNaiveSearchTask(String query, Path directoryPath) {
         this.query = query;
         this.directoryPath = directoryPath;
     }
 
-    public void run() {
+    @Override
+    protected Object compute() {
         try {
             printGoogleCount();
         } catch (IOException e) {
             System.out.printf("%s - %s - %s\r\n", directoryPath, query, "It is impossible to count");
         }
+        return null;
     }
 
     private void printGoogleCount() throws IOException {
-        System.out.printf("%s - %s - %d\r\n", directoryPath, query, naiveSearch(query));
+        System.out.printf("%s - %s - %d\r\n", directoryPath, query, naiveSearchMock(query));
     }
 
     private long naiveSearch(String query) throws IOException {
@@ -52,5 +54,4 @@ public class NaiveSearchTask implements Runnable {
         }
         return ThreadLocalRandom.current().nextInt();
     }
-
 }

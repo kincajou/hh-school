@@ -46,6 +46,7 @@ public class L1LauncherSequential {
     // test our naive methods:
     long start = currentTimeMillis();
     Path rootDirPath = Path.of("d:\\projects\\work\\hh-school\\concurrency\\src");
+    //Path rootDirPath = Path.of("E:\\GSG\\GRI\\frontend\\src\\");
     try (Stream<Path> stream = Files.walk(rootDirPath)) {
       stream.filter(Files::isDirectory)
               .forEach(file -> directoryCount(file));

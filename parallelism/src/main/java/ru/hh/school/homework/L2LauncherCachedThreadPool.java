@@ -22,8 +22,8 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
 //9076 ms
-public class Launcher {
-  static ExecutorService executorService = Executors.newCachedThreadPool();
+public class L2LauncherCachedThreadPool {
+   static ExecutorService executorService = Executors.newCachedThreadPool();
   public static void main(String[] args) throws IOException, InterruptedException {
     // Написать код, который, как можно более параллельно:
     // - по заданному пути найдет все "*.java" файлы
@@ -47,7 +47,8 @@ public class Launcher {
 
     // test our naive methods:
     long start = currentTimeMillis();
-    Path rootDirPath = Path.of("d:\\projects\\work\\hh-school\\concurrency\\src");
+    //Path rootDirPath = Path.of("d:\\projects\\work\\hh-school\\concurrency\\src");
+    Path rootDirPath = Path.of("E:\\GSG\\GRI\\frontend\\src\\");
     try (Stream<Path> stream = Files.walk(rootDirPath)) {
       Stream<Path> directoryStream = stream.filter(Files::isDirectory);
       long directorySearchDuration = currentTimeMillis() - start;
@@ -114,7 +115,7 @@ public class Launcher {
     } catch(IOException e) {
       throw new RuntimeException(e);
     }
-  }
+}
 
   private static void testCount() {
     Path path = Path.of("d:\\projects\\work\\hh-school\\parallelism\\src\\main\\java\\ru\\hh\\school\\parallelism\\Runner.java");
@@ -124,14 +125,14 @@ public class Launcher {
   private static Map<String, Long> naiveCount(Path path) {
     try {
       return Files.lines(path)
-              .flatMap(line -> Stream.of(line.split("[^a-zA-Z0-9]")))
-              .filter(word -> word.length() > 3)
-              .collect(groupingBy(identity(), counting()))
-              .entrySet()
-              .stream()
-              .sorted(comparingByValue(reverseOrder()))
-              .limit(10)
-              .collect(toMap(Entry::getKey, Entry::getValue));
+        .flatMap(line -> Stream.of(line.split("[^a-zA-Z0-9]")))
+        .filter(word -> word.length() > 3)
+        .collect(groupingBy(identity(), counting()))
+        .entrySet()
+        .stream()
+        .sorted(comparingByValue(reverseOrder()))
+        .limit(10)
+        .collect(toMap(Entry::getKey, Entry::getValue));
     }
     catch (IOException e) {
       throw new RuntimeException(e);
@@ -144,9 +145,9 @@ public class Launcher {
 
   private static long naiveSearch(String query) throws IOException {
     Document document = Jsoup //
-            .connect("https://www.google.com/search?q=" + query) //
-            .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36") //
-            .get();
+      .connect("https://www.google.com/search?q=" + query) //
+      .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36") //
+      .get();
 
     Element divResultStats = document.select("div#result-stats").first(); //div#slim_appbar div#result-stats
     String text = divResultStats.text();

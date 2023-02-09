@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import ru.hh.school.homework.common.NaiveSearchTask;
+import ru.hh.school.homework.common.RecursiceNaiveSearchTask;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +12,10 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,8 +26,8 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
 //9076 ms
-public class L2LauncherFixedThreadPool {
-   static ExecutorService executorService = Executors.newFixedThreadPool(100);
+public class L2LauncherForkJoinPool {
+   static ForkJoinPool pool = ForkJoinPool.commonPool();
   public static void main(String[] args) throws IOException, InterruptedException {
     // Написать код, который, как можно более параллельно:
     // - по заданному пути найдет все "*.java" файлы
@@ -47,7 +51,8 @@ public class L2LauncherFixedThreadPool {
 
     // test our naive methods:
     long start = currentTimeMillis();
-    Path rootDirPath = Path.of("d:\\projects\\work\\hh-school\\concurrency\\src");
+    //Path rootDirPath = Path.of("d:\\projects\\work\\hh-school\\concurrency\\src");
+    Path rootDirPath = Path.of("E:\\GSG\\GRI\\frontend\\src\\");
     try (Stream<Path> stream = Files.walk(rootDirPath)) {
       stream.filter(Files::isDirectory)
               .forEach(file -> {
@@ -57,16 +62,6 @@ public class L2LauncherFixedThreadPool {
                   throw new RuntimeException(e);
                 }
               });
-    }
-
-    executorService.shutdown();
-
-    // waits until all running tasks finish or timeout happens
-    boolean finished = executorService.awaitTermination(10000L, TimeUnit.MILLISECONDS);
-
-    if (!finished) {
-      // interrupts all running threads, still no guarantee that everything finished
-      executorService.shutdownNow();
     }
 
     long duration = currentTimeMillis() - start;
@@ -98,7 +93,7 @@ public class L2LauncherFixedThreadPool {
               .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 
 
-      result.forEach((key, value) -> executorService.execute(new NaiveSearchTask(key, path)));
+      result.forEach((key, value) -> pool.invoke(new RecursiceNaiveSearchTask(key, path)));
 
     } catch (IOException e) {
       System.out.println("It is impossible to get count value form google");
