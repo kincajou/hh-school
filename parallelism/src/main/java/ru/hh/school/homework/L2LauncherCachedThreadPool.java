@@ -46,11 +46,13 @@ public class L2LauncherCachedThreadPool {
     long start = currentTimeMillis();
     Path rootDirPath = Path.of("d:\\projects\\work\\hh-school\\concurrency\\src");
     //Path rootDirPath = Path.of("E:\\GSG\\GRI\\frontend\\src\\");
+    long directorySearchDuration = 0;
     try (Stream<Path> stream = Files.walk(rootDirPath)) {
       Stream<Path> directoryStream = stream.filter(Files::isDirectory);
-      long directorySearchDuration = currentTimeMillis() - start;
+      directorySearchDuration = currentTimeMillis() - start;
       System.out.printf("Directory search is completed in %d ms\r\n", directorySearchDuration);
       directoryStream
+              .parallel()
               .forEach(file -> {
                 try {
                   directoryCount(file);
@@ -59,7 +61,7 @@ public class L2LauncherCachedThreadPool {
                 }
               });
     }
-
+    System.out.printf("Directory processing is completed in %d ms\r\n", currentTimeMillis() - directorySearchDuration - start);
     executorService.shutdown();
 
     // waits until all running tasks finish or timeout happens
@@ -75,6 +77,7 @@ public class L2LauncherCachedThreadPool {
   }
 
   private static void directoryCount(Path path) throws InterruptedException {
+    long start = currentTimeMillis();
     try (Stream<Path> stream = Files.list(path)) {
 
       Map<String, Long> result = stream
@@ -92,7 +95,7 @@ public class L2LauncherCachedThreadPool {
               .sorted(comparingByValue(reverseOrder()))
               .limit(10)
               .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
-
+      System.out.printf("Directory analyze of %s is completed in %d ms\r\n", path.toString(), currentTimeMillis() - start);
 
       result.forEach((key, value) -> executorService.execute(new NaiveSearchTask(key, path)));
 

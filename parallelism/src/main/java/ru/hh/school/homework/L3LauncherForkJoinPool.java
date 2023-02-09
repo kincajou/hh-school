@@ -3,7 +3,6 @@ package ru.hh.school.homework;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import ru.hh.school.homework.common.NaiveSearchTask;
 import ru.hh.school.homework.common.RecursiceNaiveSearchTask;
 
 import java.io.IOException;
@@ -12,10 +11,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,7 +22,7 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
 //9076 ms
-public class L2LauncherForkJoinPool {
+public class L3LauncherForkJoinPool {
    static ForkJoinPool pool = ForkJoinPool.commonPool();
   public static void main(String[] args) throws IOException, InterruptedException {
     // Написать код, который, как можно более параллельно:

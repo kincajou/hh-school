@@ -88,7 +88,7 @@ public class L1LauncherSequential {
 
   private static void printCount(Path directoryPath, String wordToCount) {
     try {
-      System.out.printf("%s - %s - %d\r\n", directoryPath, wordToCount, naiveSearchMock(wordToCount));
+      System.out.printf("%s - %s - %d\r\n", directoryPath, wordToCount, naiveSearch(wordToCount));
     } catch(IOException e) {
       throw new RuntimeException(e);
     }

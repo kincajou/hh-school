@@ -18,7 +18,7 @@ import static java.util.Map.Entry.comparingByValue;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
-//400 ms
+// 9000 ms in one thread and 400 ms using CachedThreadPool
 public class Launcher {
   static ExecutorService executorService = Executors.newCachedThreadPool();
   public static void main(String[] args) throws IOException, InterruptedException {
@@ -86,7 +86,7 @@ public class Launcher {
               .collect(groupingBy(Entry::getKey, summarizingLong(Entry::getValue)))
               .entrySet()
               .stream()
-              .collect(Collectors.toMap(Entry::getKey, v -> v.getValue().getSum()))
+              .collect(Collectors.toMap(Entry::getKey, wordCount -> wordCount.getValue().getSum()))
               .entrySet()
               .stream()
               .sorted(comparingByValue(reverseOrder()))
