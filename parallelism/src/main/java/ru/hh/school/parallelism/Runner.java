@@ -25,7 +25,7 @@ public class Runner {
     new org.openjdk.jmh.runner.Runner(new OptionsBuilder().include(Runner.class.getSimpleName()).forks(1).build()).run();
   }
 
-  private static final int CYCLES = 1_000;
+  protected static final int CYCLES = 1_000;
   private static final int CPU_CYCLES = 10_000;
   private static final int IO_MILLISECONDS = 0;
 
