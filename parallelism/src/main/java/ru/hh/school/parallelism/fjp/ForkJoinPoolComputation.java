@@ -6,9 +6,11 @@ import ru.hh.school.parallelism.Computation;
 public class ForkJoinPoolComputation implements Computation {
 
   public long compute(int tasks) {
-    ForkJoinPool pool = new ForkJoinPool();
-    Task task = new Task(tasks);
-    return pool.invoke(task);
+    try (ForkJoinPool pool = ForkJoinPool.commonPool();) {
+      Task task = new Task(tasks);
+      return pool.invoke(task);
+    }
+
   }
 
 }
