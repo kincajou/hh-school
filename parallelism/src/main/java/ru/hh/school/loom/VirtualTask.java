@@ -1,8 +1,8 @@
 package ru.hh.school.loom;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import jdk.incubator.concurrent.StructuredTaskScope;
+import java.util.concurrent.StructuredTaskScope;
+import java.util.concurrent.StructuredTaskScope.Subtask;
 import ru.hh.school.parallelism.Runner;
 
 public class VirtualTask {
@@ -33,9 +33,9 @@ public class VirtualTask {
     return Runner.performCPUJob() + Runner.performIOJob();
   }
 
-  private Long doFork(int part1, int part2) throws ExecutionException, InterruptedException {
-    Future<Long> fork1 = scope.fork(() -> new VirtualTask(part1, scope).compute());
-    Future<Long> fork2 = scope.fork(() -> new VirtualTask(part2, scope).compute());
+  private Long doFork(int part1, int part2) {
+    Subtask<Long> fork1 = scope.fork(() -> new VirtualTask(part1, scope).compute());
+    Subtask<Long> fork2 = scope.fork(() -> new VirtualTask(part2, scope).compute());
     return fork1.get() + fork2.get();
   }
 

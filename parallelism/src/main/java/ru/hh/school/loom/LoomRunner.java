@@ -10,8 +10,6 @@ import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-// have to add jvm argument:
-// --add-modules=jdk.incubator.concurrent
 @State(Scope.Benchmark)
 public class LoomRunner extends ru.hh.school.parallelism.Runner {
 
