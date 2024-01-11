@@ -20,7 +20,7 @@ public class I4InterruptBlocked2 {
           blackHole += random.nextInt();
           deepMethod();
         } catch (RuntimeException e) {
-          System.out.println("failed process deep method: " + e);
+          System.out.println("failed to process deep method: " + e);
         }
       }
     }

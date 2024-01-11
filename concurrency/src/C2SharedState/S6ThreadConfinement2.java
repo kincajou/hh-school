@@ -6,7 +6,6 @@ import static java.lang.System.currentTimeMillis;
 public class S6ThreadConfinement2 {
 
   // Uses Task that prevents loop unrolling.
-  // TODO: unstable results
   // -XX:+PrintCompilation
   // https://stackoverflow.com/a/41154126
 
