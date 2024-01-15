@@ -21,7 +21,7 @@ public class LoomRunner extends ru.hh.school.parallelism.Runner {
   }
 
   public static void main(String[] args) throws Exception {
-    new org.openjdk.jmh.runner.Runner(new OptionsBuilder().include(LoomRunner.class.getSimpleName()).addProfiler("gc").forks(1).build()).run();
+    new org.openjdk.jmh.runner.Runner(new OptionsBuilder().include(LoomRunner.class.getCanonicalName()).addProfiler("gc").forks(1).build()).run();
   }
 
   // both loom benchmarks are behind the rest on default settings due to high gc utilization

@@ -22,12 +22,12 @@ import ru.hh.school.parallelism.stream.ParallelStreamComputation;
 public class Runner {
 
   public static void main(String[] args) throws Exception {
-    new org.openjdk.jmh.runner.Runner(new OptionsBuilder().include(Runner.class.getSimpleName()).forks(1).build()).run();
+    new org.openjdk.jmh.runner.Runner(new OptionsBuilder().include(Runner.class.getCanonicalName()).forks(1).build()).run();
   }
 
   public static final int CYCLES = 1_000;
   private static final int CPU_CYCLES = 10_000;
-  private static final int IO_MILLISECONDS = 0;
+  private static final int IO_MILLISECONDS = 1;
 
   @Benchmark
   public void sequential(Blackhole blackhole) {
