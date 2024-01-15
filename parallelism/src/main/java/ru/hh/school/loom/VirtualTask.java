@@ -2,20 +2,22 @@ package ru.hh.school.loom;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.StructuredTaskScope;
-import java.util.concurrent.StructuredTaskScope.Subtask;
+import java.util.concurrent.atomic.LongAdder;
 import ru.hh.school.parallelism.Runner;
 
 public class VirtualTask {
 
   private final int tasks;
-  private final StructuredTaskScope<Long> scope;
+  private final LongAdder resultAccumulator;
+  private final StructuredTaskScope<Void> scope;
 
-  public VirtualTask(int tasks, StructuredTaskScope<Long> scope) {
+  public VirtualTask(int tasks, LongAdder resultAccumulator, StructuredTaskScope<Void> scope) {
     this.tasks = tasks;
+    this.resultAccumulator = resultAccumulator;
     this.scope = scope;
   }
 
-  protected Long compute() throws ExecutionException, InterruptedException {
+  protected void compute() throws ExecutionException, InterruptedException {
     if (tasks > 1) {
       int part1, part2;
       if (tasks % 2 == 0) {
@@ -27,16 +29,22 @@ public class VirtualTask {
         part2 = part1 + 1;
       }
 
-      return doFork(part1, part2);
+      doFork(part1, part2);
+      return;
     }
 
-    return Runner.performCPUJob() + Runner.performIOJob();
+    resultAccumulator.add(Runner.performCPUJob() + Runner.performIOJob());
   }
 
-  private Long doFork(int part1, int part2) {
-    Subtask<Long> fork1 = scope.fork(() -> new VirtualTask(part1, scope).compute());
-    Subtask<Long> fork2 = scope.fork(() -> new VirtualTask(part2, scope).compute());
-    return fork1.get() + fork2.get();
+  private void doFork(int part1, int part2) {
+    scope.fork(() -> {
+      new VirtualTask(part1, resultAccumulator, scope).compute();
+      return null;
+    });
+    scope.fork(() -> {
+      new VirtualTask(part2, resultAccumulator, scope).compute();
+      return null;
+    });
   }
 
 
