@@ -5,7 +5,7 @@ import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 import java.util.stream.IntStream;
 
-public class Loom2 {
+public class Loom2Run {
 
   public static void main(String[] args) throws InterruptedException {
     CountDownLatch latch = new CountDownLatch(100_000);

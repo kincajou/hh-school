@@ -11,7 +11,7 @@ import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 @State(Scope.Benchmark)
-public class LoomRunner extends ru.hh.school.parallelism.Runner {
+public class Loom5Benchmark extends ru.hh.school.parallelism.Runner {
 
   static ExecutorService VIRTUAL_THREAD_EXECUTOR = Executors.newVirtualThreadPerTaskExecutor();
 
@@ -21,7 +21,7 @@ public class LoomRunner extends ru.hh.school.parallelism.Runner {
   }
 
   public static void main(String[] args) throws Exception {
-    new org.openjdk.jmh.runner.Runner(new OptionsBuilder().include(LoomRunner.class.getCanonicalName()).addProfiler("gc").forks(1).build()).run();
+    new org.openjdk.jmh.runner.Runner(new OptionsBuilder().include(Loom5Benchmark.class.getCanonicalName()).addProfiler("gc").forks(1).build()).run();
   }
 
   // both loom benchmarks are behind the rest on default settings due to high gc utilization

@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
-public class Loom1 {
+public class Loom1Run {
 
   public static void main(String[] args) {
     try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {

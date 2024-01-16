@@ -14,27 +14,26 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @Warmup(iterations = 1, time = 5)
 @Measurement(iterations = 3, time = 5)
 @BenchmarkMode(Mode.Throughput)
-public class ThreadsVsVThreads {
+public class Loom4ThreadsVsVThreads {
 
   public static void main(String[] args) throws Exception {
-    new Runner(new OptionsBuilder().include(ThreadsVsVThreads.class.getSimpleName()).forks(1).build()).run();
+    new Runner(new OptionsBuilder().include(Loom4ThreadsVsVThreads.class.getSimpleName()).forks(1).build()).run();
   }
 
   @Benchmark
   public void platformThread() throws InterruptedException {
-    Thread thread = new Thread(ThreadsVsVThreads::consumeCycles);
+    Thread thread = new Thread(Loom4ThreadsVsVThreads::consumeCycles);
     thread.start();
     thread.join();
   }
 
   @Benchmark
   public void virtualThread() throws InterruptedException {
-    Thread thread = Thread.startVirtualThread(ThreadsVsVThreads::consumeCycles);
+    Thread thread = Thread.startVirtualThread(Loom4ThreadsVsVThreads::consumeCycles);
     thread.join();
   }
 
   public static void consumeCycles() {
     Blackhole.consumeCPU(10);
   }
-
 }
