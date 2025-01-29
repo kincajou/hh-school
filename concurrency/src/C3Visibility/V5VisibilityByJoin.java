@@ -1,6 +1,6 @@
 package C3Visibility;
 
-public class V4VisibilityByJoin {
+public class V5VisibilityByJoin {
 
   // Wait! How does ThreadConfinement example work? There is neither synchronized nor volatile.
   // Well, there is a Thread.join, which also guarantees visibility.
