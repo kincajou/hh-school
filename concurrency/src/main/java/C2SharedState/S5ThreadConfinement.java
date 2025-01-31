@@ -1,12 +1,15 @@
 package C2SharedState;
 
 import static java.lang.System.currentTimeMillis;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class S5ThreadConfinement {
 
   // Instead of using fancy tools, just do not share state.
   // The code is simpler.
-  // And JIT loves it.
+
+  private static final Logger LOGGER = getLogger(S5ThreadConfinement.class);
 
   // different implementation of task
   static class ThreadConfinementTask implements Runnable {
@@ -30,7 +33,7 @@ public class S5ThreadConfinement {
 
   public static void main(String[] args) throws InterruptedException {
 
-    int iterations = 1_000_000_000;
+    int iterations = 100_000_000;
     int numOfThreads = 2;
 
     while (true) {
@@ -49,7 +52,7 @@ public class S5ThreadConfinement {
       int actualIterations = task1.actualIterations + task2.actualIterations;
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, " + actualIterations + " iterations");
+      LOGGER.debug("{} ms, {} iterations", duration, actualIterations);
 
       // will it work faster or slower?
     }

@@ -1,8 +1,13 @@
 package C7DeadLocks;
 
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class D1DeadLock {
 
   // Does this program always make progress?
+
+  private static final Logger LOGGER = getLogger(D1DeadLock.class);
 
   static class Wallet {
     int money;
@@ -24,7 +29,7 @@ public class D1DeadLock {
         transfer(fromWallet, toWallet, money);
         i++;
         if (i % 100 == 0) {
-          System.out.println(Thread.currentThread().getName() + " made " + i + " transfers");
+          LOGGER.debug("made {} transfers", i);
         }
       }
     };

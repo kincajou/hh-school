@@ -4,10 +4,14 @@ import common.Task;
 import static java.lang.System.currentTimeMillis;
 import java.util.List;
 import java.util.stream.IntStream;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class T2SeveralThreads {
 
   // Several threads do the same amount of work in parallel.
+
+  private static final Logger LOGGER = getLogger(T2SeveralThreads.class);
 
   public static void main(String[] args) throws InterruptedException {
 
@@ -19,7 +23,7 @@ public class T2SeveralThreads {
     while (true) {
       long start = currentTimeMillis();
 
-      Task task = new Task(iterations / numOfThreads); // not precise, but ok to show the idea
+      Task task = new Task(iterations / numOfThreads, false); // not precise, but ok to show the idea
       List<Thread> threads = IntStream.range(0, numOfThreads)
         // NOTE: name your threads!
           .mapToObj(i -> new Thread(task, "Task thread " + i))
@@ -31,7 +35,7 @@ public class T2SeveralThreads {
       // can't restart thread
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
+      LOGGER.debug("{} ms", duration);
     }
 
   }

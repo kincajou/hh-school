@@ -7,8 +7,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class V1NoVisibility {
 
-  private static final int ITERATIONS = 100_000;
-
   private static final Logger LOGGER = getLogger(V1NoVisibility.class);
 
   // Does it always stop?
@@ -30,15 +28,17 @@ public class V1NoVisibility {
 
   public static void main(String[] args) throws InterruptedException {
 
+    int iterations = 100_000;
+
     long start = currentTimeMillis();
 
-    NoVisibilityTask task = new NoVisibilityTask(ITERATIONS);
+    NoVisibilityTask task = new NoVisibilityTask(iterations);
     Thread thread = new Thread(task, "Task thread");
     thread.start();
 
     while (true) {
       // can we put == here?
-      if (task.actualIterations >= ITERATIONS) {
+      if (task.actualIterations >= iterations) {
         break;
       }
       // will reading second time help?
@@ -55,6 +55,6 @@ public class V1NoVisibility {
     }
 
     long duration = currentTimeMillis() - start;
-    LOGGER.debug("{} ms, blackhole: {}, value: {}", duration, task.getBlackHole(), task.actualIterations);
+    LOGGER.debug("{} ms, value: {}", duration, task.actualIterations);
   }
 }

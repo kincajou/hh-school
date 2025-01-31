@@ -1,11 +1,16 @@
 package C6WaitNotify;
 
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class W1ProducerConsumerProblem {
 
   // We used BlockingQueue backing a thread pool.
   // BlockingQueue is a common tool to decouple producers from consumers.
   // Consider a simplified implementation.
   // Any problems?
+
+  private static final Logger LOGGER = getLogger(W1ProducerConsumerProblem.class);
 
   static class SingularQueue<T> implements Producer<T>, Consumer<T> {
 
@@ -42,7 +47,7 @@ public class W1ProducerConsumerProblem {
     Runnable consumerTask = () -> {
       while(!Thread.currentThread().isInterrupted()) {
         String string = singularQueue.consume();
-        System.out.println("Consumed " + string);
+        LOGGER.debug("Consumed: {}", string);
       }
     };
     Thread consumerThread = new Thread(consumerTask, "consumer");

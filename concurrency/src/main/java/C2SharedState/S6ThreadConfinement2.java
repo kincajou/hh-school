@@ -2,12 +2,16 @@ package C2SharedState;
 
 import common.Task;
 import static java.lang.System.currentTimeMillis;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class S6ThreadConfinement2 {
 
   // Uses Task that prevents loop unrolling.
   // -XX:+PrintCompilation
   // https://stackoverflow.com/a/41154126
+
+  private static final Logger LOGGER = getLogger(S6ThreadConfinement2.class);
 
   static class ThreadConfinementTask extends Task {
 
@@ -25,7 +29,7 @@ public class S6ThreadConfinement2 {
 
   public static void main(String[] args) throws InterruptedException {
 
-    int iterations = 1_000_000_000;
+    int iterations = 100_000_000;
     int numOfThreads = 2;
 
     while (true) {
@@ -40,10 +44,9 @@ public class S6ThreadConfinement2 {
       thread1.join();
       thread2.join();
       int actualIterations = task1.actualIterations + task2.actualIterations;
-      int blackHole = task1.getBlackHole() + task2.getBlackHole();
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, " + actualIterations + " iterations, blackhole: " + blackHole);
+      LOGGER.debug("{} ms, {} iterations", duration, actualIterations);
 
       // why starting phase is unstable?
     }

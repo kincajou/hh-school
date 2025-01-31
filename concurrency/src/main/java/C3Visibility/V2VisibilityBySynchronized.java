@@ -1,14 +1,12 @@
 package C3Visibility;
 
 import common.Task;
+import common.Utils;
 import static java.lang.System.currentTimeMillis;
-import java.util.Random;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class V2VisibilityBySynchronized {
-
-  private static final int ITERATIONS = 1_000_000_000;
 
   private static final Logger LOGGER = getLogger(V2VisibilityBySynchronized.class);
 
@@ -30,16 +28,12 @@ public class V2VisibilityBySynchronized {
       synchronized (monitor) {
         actualIterations++;
       }
-      if (actualIterations >= ITERATIONS) {
-        LOGGER.debug("got: {}", actualIterations);
-      }
     }
   }
 
   public static void main(String[] args) throws InterruptedException {
 
-    int iterations = 1_000_000_000;
-    int blackhole = 0;
+    int iterations = 100_000_000;
 
     while (true) {
       long start = currentTimeMillis();
@@ -53,12 +47,12 @@ public class V2VisibilityBySynchronized {
             break;
           }
         }
-        blackhole = new Random().nextInt();
-        // Thread.sleep(1L);
+        Utils.consumeCPUWithoutBarrier(100);
       }
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, blackhole: " + task.getBlackHole() + ", value: " + task.actualIterations + " " + blackhole);
+      LOGGER.debug("{} ms, value: {}", duration, task.actualIterations);
+      System.gc();
     }
   }
 }

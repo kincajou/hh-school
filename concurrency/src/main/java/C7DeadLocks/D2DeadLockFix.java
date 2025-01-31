@@ -2,11 +2,15 @@ package C7DeadLocks;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class D2DeadLockFix {
 
   // Let's always synchronize in particular order.
   // What if wallet will be the same?
+
+  private static final Logger LOGGER = getLogger(D2DeadLockFix.class);
 
   static class Wallet {
     final int walletId;
@@ -36,7 +40,7 @@ public class D2DeadLockFix {
         transfer(fromWallet, toWallet, money);
         i++;
         if (i % 100 == 0) {
-          System.out.println(Thread.currentThread().getName() + " made " + i + " transfers");
+          LOGGER.debug("made {} transfers", i);
         }
       }
     };

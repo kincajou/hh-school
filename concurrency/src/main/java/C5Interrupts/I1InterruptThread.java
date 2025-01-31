@@ -1,12 +1,16 @@
 package C5Interrupts;
 
 import java.util.concurrent.ThreadLocalRandom;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class I1InterruptThread {
 
   // What if we are running some task, but it is time to stop the server.
   // For example for a new release.
   // Will this code stop?
+
+  private static final Logger LOGGER = getLogger(I1InterruptThread.class);
 
   static class LongTask implements Runnable {
 
@@ -33,7 +37,7 @@ public class I1InterruptThread {
     thread.interrupt();
     thread.join();
 
-    System.out.println("Thread stopped, " + longTask.blackHole);
+    LOGGER.debug("Thread stopped, {}", longTask.blackHole);
     // will it stop?
 
   }

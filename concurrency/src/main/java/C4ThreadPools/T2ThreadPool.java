@@ -8,10 +8,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class T2ThreadPool {
 
   // Let's reuse threads.
+
+  private static final Logger LOGGER = getLogger(T2ThreadPool.class);
 
   static class SmallTask implements Callable<Integer> {
     @Override
@@ -53,7 +57,7 @@ public class T2ThreadPool {
 
       long duration = currentTimeMillis() - start;
       float taskDuration = (float) duration / iterations;
-      System.out.println(duration + " ms / " + iterations + " tasks = " + taskDuration + " ms / task, blackhole: " + blackHole);
+      LOGGER.debug("{} ms / {} tasks = {} ms / task, blackhole: {}", duration, iterations, taskDuration, blackHole);
     }
 
   }

@@ -1,11 +1,15 @@
 package C2SharedState;
 
 import common.Task;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class S1SharedState {
 
   // What if we want to share some state between threads?
   // For example, number of some page views.
+
+  private static final Logger LOGGER = getLogger(S1SharedState.class);
 
   static class SharedStateTask extends Task {
 
@@ -24,7 +28,7 @@ public class S1SharedState {
 
   public static void main(String[] args) throws InterruptedException {
 
-    int iterations = 1_000_000_000;
+    int iterations = 100_000_000;
     int numOfThreads = 2;
 
     SharedStateTask task = new SharedStateTask(iterations / numOfThreads);
@@ -34,7 +38,7 @@ public class S1SharedState {
     thread2.start();
     thread1.join();
     thread2.join();
-    System.out.println("Expected " + iterations + ", got " + task.actualIterations + ", blackhole: " + task.getBlackHole());
+    LOGGER.debug("Expected {}, got {}", iterations, task.actualIterations);
 
     // how much do we get in output?
   }

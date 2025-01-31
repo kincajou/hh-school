@@ -1,9 +1,14 @@
 package C3Visibility;
 
 import common.Task;
+import common.Utils;
 import static java.lang.System.currentTimeMillis;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class V3VisibilityByVolatile {
+
+  private static final Logger LOGGER = getLogger(V3VisibilityByVolatile.class);
 
   // Volatile guarantees visibility.
   // It is cheaper that synchronized.
@@ -21,15 +26,12 @@ public class V3VisibilityByVolatile {
     @Override
     protected void onIteration() {
       actualIterations++;
-      if (actualIterations >= 1_000_000_000) {
-        System.out.println("got " + actualIterations + " iterations inside thread");
-      }
     }
   }
 
   public static void main(String[] args) throws InterruptedException {
 
-    int iterations = 1_000_000_000;
+    int iterations = 100_000_000;
 
     while (true) {
       long start = currentTimeMillis();
@@ -41,11 +43,11 @@ public class V3VisibilityByVolatile {
         if (task.actualIterations >= iterations) {
           break;
         }
-        //Thread.sleep(1L);
+        Utils.consumeCPUWithoutBarrier(100);
       }
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, blackhole: " + task.getBlackHole() + ", value: " + task.actualIterations);
+      LOGGER.debug("{} ms, value: {}", duration, task.actualIterations);
     }
   }
 }

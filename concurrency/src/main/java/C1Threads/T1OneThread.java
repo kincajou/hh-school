@@ -2,6 +2,8 @@ package C1Threads;
 
 import common.Task;
 import static java.lang.System.currentTimeMillis;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class T1OneThread {
 
@@ -11,6 +13,8 @@ public class T1OneThread {
   // Uses only one CPU core.
   // How can we use more cores?
 
+  private static final Logger LOGGER = getLogger(T1OneThread.class);
+
   public static void main(String[] args) {
 
     int iterations = 1_000_000_000;
@@ -18,11 +22,11 @@ public class T1OneThread {
     while (true) {
       long start = currentTimeMillis();
 
-      Task task = new Task(iterations);
+      Task task = new Task(iterations, false);
       task.run();
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
+      LOGGER.debug("{} ms", duration);
     }
 
   }

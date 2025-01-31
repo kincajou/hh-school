@@ -2,10 +2,14 @@ package C2SharedState;
 
 import common.Task;
 import static java.lang.System.currentTimeMillis;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class S2Synchronized {
 
   // Synchronized block prevents parallel execution of threads locking on the same monitor.
+
+  private static final Logger LOGGER = getLogger(S2Synchronized.class);
 
   static class SynchronizedTask extends Task {
 
@@ -35,7 +39,7 @@ public class S2Synchronized {
 
   public static void main(String[] args) throws InterruptedException {
 
-    int iterations = 1_000_000_000;
+    int iterations = 100_000_000;
     int numOfThreads = 2;
 
     while (true) {
@@ -50,7 +54,7 @@ public class S2Synchronized {
       thread2.join();
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, " + task.actualIterations + " iterations, blackhole: " + task.getBlackHole());
+      LOGGER.debug("{} ms, {} iterations", duration, task.actualIterations);
 
       // what's happening here:
       // - sync on monitor

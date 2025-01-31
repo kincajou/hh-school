@@ -1,10 +1,14 @@
 package C5Interrupts;
 
 import java.util.concurrent.ThreadLocalRandom;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class I2InterruptCPUIntensive {
 
   // We should periodically check interrupted flag.
+
+  private static final Logger LOGGER = getLogger(I2InterruptCPUIntensive.class);
 
   static class LongTask implements Runnable {
 
@@ -31,7 +35,7 @@ public class I2InterruptCPUIntensive {
     thread.interrupt();
     thread.join();
 
-    System.out.println("Thread stopped, " + longTask.blackHole);
+    LOGGER.debug("Thread stopped, {}", longTask.blackHole);
     // will it stop?
 
   }

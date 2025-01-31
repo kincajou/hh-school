@@ -1,12 +1,16 @@
 package C5Interrupts;
 
 import java.util.concurrent.ThreadLocalRandom;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class I3InterruptBlocked {
 
   // Ok, we check interrupted flag.
   // But what if the thread is blocked.
   // For example, waiting response from database.
+
+  private static final Logger LOGGER = getLogger(I3InterruptBlocked.class);
 
   static class LongTask implements Runnable {
 
@@ -20,7 +24,7 @@ public class I3InterruptBlocked {
         try {
           Thread.sleep(1000L);
         } catch (InterruptedException e) {
-          System.out.println(Thread.currentThread().getName() + " got " + e);
+          LOGGER.error("Interruped", e);
         }
       }
     }
@@ -38,7 +42,7 @@ public class I3InterruptBlocked {
     thread.interrupt();
     thread.join();
 
-    System.out.println("Thread stopped, " + longTask.blackHole);
+    LOGGER.debug("Thread stopped, {}", longTask.blackHole);
     // will it stop?
 
   }

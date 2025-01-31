@@ -1,12 +1,16 @@
 package C5Interrupts;
 
 import java.util.concurrent.ThreadLocalRandom;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class I4InterruptBlocked2 {
 
   // We should somehow react to InterruptedException.
   // It is often not easy. Consider complicated code with many deep methods throwing InterruptedException.
   // https://www.yegor256.com/2015/10/20/interrupted-exception.html
+
+  private static final Logger LOGGER = getLogger(I4InterruptBlocked2.class);
 
   static class LongTask implements Runnable {
 
@@ -20,7 +24,7 @@ public class I4InterruptBlocked2 {
           blackHole += random.nextInt();
           deepMethod();
         } catch (RuntimeException e) {
-          System.out.println("failed to process deep method: " + e);
+          LOGGER.error("failed to process deep method", e);
         }
       }
     }
@@ -48,7 +52,6 @@ public class I4InterruptBlocked2 {
     thread.interrupt();
     thread.join();
 
-    System.out.println("Thread stopped, " + longTask.blackHole);
-
+    LOGGER.debug("Thread stopped, {}", longTask.blackHole);
   }
 }

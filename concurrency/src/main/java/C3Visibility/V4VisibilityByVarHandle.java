@@ -1,9 +1,12 @@
 package C3Visibility;
 
 import common.Task;
+import common.Utils;
 import static java.lang.System.currentTimeMillis;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class V4VisibilityByVarHandle {
 
@@ -18,6 +21,8 @@ public class V4VisibilityByVarHandle {
   //
   // https://www.baeldung.com/java-variable-handles
   // https://shipilev.net/talks/jpoint-April2016-varhandles.pdf
+
+  private static final Logger LOGGER = getLogger(V4VisibilityByVarHandle.class);
 
   static class VarHandleTask extends Task {
 
@@ -37,14 +42,13 @@ public class V4VisibilityByVarHandle {
 
     @Override
     protected void onIteration() {
-      handle.getAndAdd(this, 1);
-      // actualIterations++;
+      actualIterations++;
     }
   }
 
   public static void main(String[] args) throws InterruptedException {
 
-    int iterations = 1_000_000_000;
+    int iterations = 100_000_000;
 
     while (true) {
       long start = currentTimeMillis();
@@ -56,11 +60,11 @@ public class V4VisibilityByVarHandle {
         if ((int) task.handle.getVolatile(task) >= iterations) {
           break;
         }
-        // Thread.sleep(1L);
+        Utils.consumeCPUWithoutBarrier(100);
       }
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, blackhole: " + task.getBlackHole() + ", value: " + task.handle.get(task));
+      LOGGER.debug("{} ms, value: {}", duration, task.handle.get(task));
     }
   }
 }

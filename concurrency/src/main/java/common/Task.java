@@ -1,6 +1,6 @@
 package common;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.openjdk.jmh.infra.Blackhole;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -9,30 +9,29 @@ public class Task implements Runnable {
   private static final Logger LOGGER = getLogger(Task.class);
 
   private final int iterations;
+  private final boolean logFinished;
 
   public Task(int iterations) {
-    this.iterations = iterations;
+    this(iterations, true);
   }
 
-  private int blackHole;
+  public Task(int iterations, boolean logFinished) {
+    this.iterations = iterations;
+    this.logFinished = logFinished;
+  }
 
   @Override
   public void run() {
-    int blackHole = 0;
-    ThreadLocalRandom random = ThreadLocalRandom.current();
     for (int i = 0; i < iterations; i++) {
-      // can we remove blackHole increment?
-      blackHole += random.nextInt();
+      // can we remove blackHole?
+      Blackhole.consumeCPU(10);
       onIteration();
     }
-    this.blackHole += blackHole;
-    LOGGER.debug("Finished iterating");
+    if (logFinished) {
+      LOGGER.debug("Finished iterating");
+    }
   }
 
   protected void onIteration() {
-  }
-
-  public int getBlackHole() {
-    return blackHole;
   }
 }

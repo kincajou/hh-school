@@ -1,8 +1,13 @@
 package C6WaitNotify;
 
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class W3WaitNotify {
 
   // More optimized version, that does not wake up all waiters.
+
+  private static final Logger LOGGER = getLogger(W3WaitNotify.class);
 
   static class SingularQueue<T> implements Producer<T>, Consumer<T> {
 
@@ -52,7 +57,7 @@ public class W3WaitNotify {
         } catch (InterruptedException e) {
           return;
         }
-        System.out.println("Consumed " + string);
+        LOGGER.debug("Consumed {}", string);
       }
     };
     Thread consumerThread = new Thread(consumerTask, "consumer");

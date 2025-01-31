@@ -2,11 +2,15 @@ package C4ThreadPools;
 
 import static java.lang.System.currentTimeMillis;
 import java.util.concurrent.ThreadLocalRandom;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class T1ThreadCost {
 
   // Ok, let's always use thread confined variables and publish results with Thread.join().
   // Will it work for small tasks?
+
+  private static final Logger LOGGER = getLogger(T1ThreadCost.class);
 
   static class SmallTask implements Runnable {
 
@@ -38,7 +42,7 @@ public class T1ThreadCost {
 
       long duration = currentTimeMillis() - start;
       float taskDuration = (float) duration / iterations;
-      System.out.println(duration + " ms / " + iterations + " tasks = " + taskDuration + " ms / task, blackhole: " + blackHole);
+      LOGGER.debug("{} ms / {} tasks = {} ms / task, blackhole: {}", duration, iterations, taskDuration, blackHole);
     }
   }
 }

@@ -3,6 +3,8 @@ package C6WaitNotify;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class W4LockCondition {
 
@@ -11,6 +13,8 @@ public class W4LockCondition {
   // But look at other methods provided by these interfaces, for example Lock.tryLock(time, unit).
   // Also look through other synchronizers: Semaphore, CountDownLatch, CyclicBarrier, etc.
   // https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/concurrent/package-summary.html
+
+  private static final Logger LOGGER = getLogger(W4LockCondition.class);
 
   static class SingularQueue<T> implements Producer<T>, Consumer<T> {
 
@@ -61,10 +65,10 @@ public class W4LockCondition {
         try {
           string = singularQueue.consume();
         } catch (InterruptedException e) {
-          System.out.println("Consumer is interrupted, stopping");
+          LOGGER.debug("Consumer is interrupted, stopping");
           return;
         }
-        System.out.println("Consumed " + string);
+        LOGGER.debug("Consumed {}", string);
       }
     };
     Thread consumerThread = new Thread(consumerTask, "consumer");

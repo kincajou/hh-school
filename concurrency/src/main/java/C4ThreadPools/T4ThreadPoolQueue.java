@@ -7,6 +7,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class T4ThreadPoolQueue {
 
@@ -22,6 +24,8 @@ public class T4ThreadPoolQueue {
   // - small thread pools (<100 threads)
   // - moderate size queue (100-10_000)
   // - "block on reject" behaviour
+
+  private static final Logger LOGGER = getLogger(T4ThreadPoolQueue.class);
 
   static class SmallTask implements Runnable {
     @Override
@@ -53,7 +57,7 @@ public class T4ThreadPoolQueue {
       }
 
       if (currentTimeMillis() - start > 1_000) {
-        System.out.println(requests + " requests / sec, " + rejects + " rejects / sec");
+        LOGGER.debug("{} requests / sec, {} rejects / sec", requests, rejects);
         requests = 0;
         rejects = 0;
         start = currentTimeMillis();

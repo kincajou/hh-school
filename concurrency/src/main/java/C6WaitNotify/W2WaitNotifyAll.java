@@ -1,5 +1,8 @@
 package C6WaitNotify;
 
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class W2WaitNotifyAll {
 
   // Wait / notify(All) can be used only inside synchronized block.
@@ -7,6 +10,8 @@ public class W2WaitNotifyAll {
   // Notify wakes up one arbitrary waiter.
   // NotifyAll wakes up all waiters.
   // Is it ok to use notify in this example?
+
+  private static final Logger LOGGER = getLogger(W2WaitNotifyAll.class);
 
   static class SingularQueue<T> implements Producer<T>, Consumer<T> {
 
@@ -49,7 +54,7 @@ public class W2WaitNotifyAll {
         } catch (InterruptedException e) {
           return;
         }
-        System.out.println("Consumed " + string);
+        LOGGER.debug("Consumed {}", string);
       }
     };
     Thread consumerThread = new Thread(consumerTask, "consumer");

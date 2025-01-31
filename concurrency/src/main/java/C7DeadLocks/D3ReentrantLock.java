@@ -5,11 +5,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class D3ReentrantLock {
 
   // What if synchronized blocks are in completely different methods, and we do not even know where?
   // We can use Lock.tryLock(time)
+
+  private static final Logger LOGGER = getLogger(D3ReentrantLock.class);
 
   static class Wallet {
     // can be fair or not
@@ -49,12 +53,12 @@ public class D3ReentrantLock {
         try {
           transfer(fromWallet, toWallet, money);
         } catch (Exception e) {
-          System.out.println(Thread.currentThread().getName() + " got " + e);
+          LOGGER.error("failed", e);
           continue;
         }
         i++;
         if (i % 100 == 0) {
-          System.out.println(Thread.currentThread().getName() + " made " + i + " transfers");
+          LOGGER.debug("made {} transfers", i);
         }
       }
     };
