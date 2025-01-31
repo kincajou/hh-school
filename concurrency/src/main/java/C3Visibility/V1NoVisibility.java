@@ -2,8 +2,14 @@ package C3Visibility;
 
 import common.Task;
 import static java.lang.System.currentTimeMillis;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class V1NoVisibility {
+
+  private static final int ITERATIONS = 100_000;
+
+  private static final Logger LOGGER = getLogger(V1NoVisibility.class);
 
   // Does it always stop?
   // Notice number of iterations.
@@ -22,19 +28,17 @@ public class V1NoVisibility {
     }
   }
 
-  public static void main(String[] args) {
-
-    int iterations = 10_000;
+  public static void main(String[] args) throws InterruptedException {
 
     long start = currentTimeMillis();
 
-    NoVisibilityTask task = new NoVisibilityTask(iterations);
+    NoVisibilityTask task = new NoVisibilityTask(ITERATIONS);
     Thread thread = new Thread(task, "Task thread");
     thread.start();
 
     while (true) {
       // can we put == here?
-      if (task.actualIterations >= iterations) {
+      if (task.actualIterations >= ITERATIONS) {
         break;
       }
       // will reading second time help?
@@ -51,6 +55,6 @@ public class V1NoVisibility {
     }
 
     long duration = currentTimeMillis() - start;
-    System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
+    LOGGER.debug("{} ms, blackhole: {}, value: {}", duration, task.getBlackHole(), task.actualIterations);
   }
 }

@@ -2,8 +2,15 @@ package C3Visibility;
 
 import common.Task;
 import static java.lang.System.currentTimeMillis;
+import java.util.Random;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class V2VisibilityBySynchronized {
+
+  private static final int ITERATIONS = 1_000_000_000;
+
+  private static final Logger LOGGER = getLogger(V2VisibilityBySynchronized.class);
 
   // Synchronized guarantees visibility of ALL variables (incl. i.e. blackhole) between
   // threads that synchronize on the same monitor.
@@ -23,12 +30,16 @@ public class V2VisibilityBySynchronized {
       synchronized (monitor) {
         actualIterations++;
       }
+      if (actualIterations >= ITERATIONS) {
+        LOGGER.debug("got: {}", actualIterations);
+      }
     }
   }
 
   public static void main(String[] args) throws InterruptedException {
 
     int iterations = 1_000_000_000;
+    int blackhole = 0;
 
     while (true) {
       long start = currentTimeMillis();
@@ -42,11 +53,12 @@ public class V2VisibilityBySynchronized {
             break;
           }
         }
-        Thread.sleep(10L);
+        blackhole = new Random().nextInt();
+        // Thread.sleep(1L);
       }
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
+      System.out.println(duration + " ms, blackhole: " + task.getBlackHole() + ", value: " + task.actualIterations + " " + blackhole);
     }
   }
 }

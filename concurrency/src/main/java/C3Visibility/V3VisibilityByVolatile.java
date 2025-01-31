@@ -1,7 +1,6 @@
 package C3Visibility;
 
 import common.Task;
-
 import static java.lang.System.currentTimeMillis;
 
 public class V3VisibilityByVolatile {
@@ -22,6 +21,9 @@ public class V3VisibilityByVolatile {
     @Override
     protected void onIteration() {
       actualIterations++;
+      if (actualIterations >= 1_000_000_000) {
+        System.out.println("got " + actualIterations + " iterations inside thread");
+      }
     }
   }
 
@@ -39,11 +41,11 @@ public class V3VisibilityByVolatile {
         if (task.actualIterations >= iterations) {
           break;
         }
-        Thread.sleep(10L);
+        //Thread.sleep(1L);
       }
 
       long duration = currentTimeMillis() - start;
-      System.out.println(duration + " ms, blackhole: " + task.getBlackHole());
+      System.out.println(duration + " ms, blackhole: " + task.getBlackHole() + ", value: " + task.actualIterations);
     }
   }
 }
