@@ -8,8 +8,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class C3ConcurrentHashMap {
+
+  private static final Logger LOGGER = getLogger(C3ConcurrentHashMap.class);
 
   record CachedValue(int id, int value) {
   }
@@ -26,7 +30,7 @@ public class C3ConcurrentHashMap {
     private final AtomicInteger iteration = new AtomicInteger();
 
     public WritingTask(int iterations) {
-      super(iterations);
+      super(iterations, false);
     }
 
     @Override
@@ -43,7 +47,7 @@ public class C3ConcurrentHashMap {
     private long blackhole;
 
     public ReadingTask(int iterations) {
-      super(iterations);
+      super(iterations, false);
     }
 
     @Override
@@ -83,6 +87,6 @@ public class C3ConcurrentHashMap {
     }
     long duration = currentTimeMillis() - start;
 
-    System.out.printf("Cache filled in %dms, size is %d, blackhole is %d%n", duration, CACHE.size(), readingTask.blackhole); // should be 800_000
+    LOGGER.debug("Cache filled in {}ms, size is {}, blackhole is {}", duration, CACHE.size(), readingTask.blackhole);
   }
 }

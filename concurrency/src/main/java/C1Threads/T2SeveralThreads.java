@@ -18,7 +18,7 @@ public class T2SeveralThreads {
     int iterations = 1_000_000_000;
     // how many cores do we have?
     int numOfThreads = Runtime.getRuntime().availableProcessors();
-    System.out.println("num of threads: " + numOfThreads);
+    LOGGER.debug("num of threads: " + numOfThreads);
 
     while (true) {
       long start = currentTimeMillis();

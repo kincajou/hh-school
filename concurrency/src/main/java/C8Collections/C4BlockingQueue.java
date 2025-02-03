@@ -2,8 +2,12 @@ package C8Collections;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 public class C4BlockingQueue {
+
+  private static final Logger LOGGER = getLogger(C4BlockingQueue.class);
 
   static class Wallet {
     int money;
@@ -27,12 +31,12 @@ public class C4BlockingQueue {
           TASKS.put(new TransferTask(fromWallet, toWallet, money));
           i++;
           if (i % 100 == 0) {
-            System.out.printf("%s made %d transfers, %d tasks pending%n", Thread.currentThread().getName(), i, TASKS.size());
+            LOGGER.debug("made {} transfers, {} tasks pending", i, TASKS.size());
           }
         }
       }
       catch (InterruptedException e) {
-        System.out.println("Interrupted");
+        LOGGER.error("Interrupted", e);
       }
     };
   }
@@ -46,7 +50,7 @@ public class C4BlockingQueue {
         }
       }
       catch (InterruptedException e) {
-        System.out.println("Interrupted");
+        LOGGER.error("Interrupted", e);
       }
     };
   }
