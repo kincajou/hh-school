@@ -1,6 +1,5 @@
 package C1Threads;
 
-import common.Task;
 import static java.lang.System.currentTimeMillis;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -23,7 +22,7 @@ public class T2SeveralThreads {
     while (true) {
       long start = currentTimeMillis();
 
-      Task task = new Task(iterations / numOfThreads, false); // not precise, but ok to show the idea
+      T1OneThread.UselessTask task = new T1OneThread.UselessTask(iterations / numOfThreads); // not precise, but ok to show the idea
       List<Thread> threads = IntStream.range(0, numOfThreads)
         // NOTE: name your threads!
           .mapToObj(i -> new Thread(task, "Task thread " + i))
