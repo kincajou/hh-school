@@ -3,6 +3,7 @@ package ru.hh.school.loom;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.StructuredTaskScope;
+import java.util.concurrent.TimeoutException;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -13,7 +14,7 @@ public class Loom3StructuralConcurrency {
 
   private static final Random RANDOM = new Random();
 
-  public static void main(String[] args) throws InterruptedException, ExecutionException {
+  public static void main(String[] args) throws InterruptedException, ExecutionException, TimeoutException {
     LOGGER.debug("StructuredTaskScope.ShutdownOnSuccess");
     // captures first success result, interrupts other unfinished threads
     try (var scope = new StructuredTaskScope.ShutdownOnSuccess<String>()) {
@@ -35,7 +36,9 @@ public class Loom3StructuralConcurrency {
          return get("Bar");
 //        throw new RuntimeException("zxc");
       });
-      scope.join();//.throwIfFailed();
+      scope.join();
+//      scope.joinUntil(Instant.now().plusMillis(10000));
+//      scope.throwIfFailed();
       LOGGER.debug("Foo is {}", foo.state());
       LOGGER.debug("Bar is {}", bar.state());
     }
