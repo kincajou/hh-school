@@ -19,7 +19,7 @@ public class Loom3StructuralConcurrency {
 //        throw new RuntimeException("zxc");
       });
       scope.join();
-      System.out.println(STR."Result is \{scope.result()}");
+      System.out.println("Result is " + scope.result());
     }
 
 
@@ -39,12 +39,12 @@ public class Loom3StructuralConcurrency {
 
   private static String get(String string) {
     int random = RANDOM.nextInt(10);
-    System.out.println(STR."\{string}, delay: \{random}");
+    System.out.println(string + ", delay: " + random);
     try {
       Thread.sleep(random);
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
-      System.out.println(STR."Interrupted: \{string}");
+      System.out.println("Interrupted: " + string);
     }
     return string;
   }
