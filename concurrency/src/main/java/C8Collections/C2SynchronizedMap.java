@@ -62,7 +62,7 @@ public class C2SynchronizedMap {
   }
 
   private static void doCycle() throws InterruptedException {
-    int iterations = 50_000;
+    int iterations = 500_000;
 
     CACHE.clear();
 
