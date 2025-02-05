@@ -13,7 +13,7 @@ public class LoomExecutorComputation implements Computation {
     LongAdder longAdder = new LongAdder();
 
     for (int i = 0; i < tasks; i++) {
-      Loom5Benchmark.VIRTUAL_THREAD_EXECUTOR.submit(() -> {
+      Loom6Benchmark.VIRTUAL_THREAD_EXECUTOR.submit(() -> {
         long cpuResult = Runner.performCPUJob();
         longAdder.add(cpuResult);
         long ioResult = Runner.performIOJob();

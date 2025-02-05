@@ -14,22 +14,22 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @Warmup(iterations = 1, time = 5)
 @Measurement(iterations = 3, time = 5)
 @BenchmarkMode(Mode.Throughput)
-public class Loom4ThreadsVsVThreads {
+public class Loom5ThreadsVsVThreads {
 
   public static void main(String[] args) throws Exception {
-    new Runner(new OptionsBuilder().include(Loom4ThreadsVsVThreads.class.getSimpleName()).forks(1).build()).run();
+    new Runner(new OptionsBuilder().include(Loom5ThreadsVsVThreads.class.getSimpleName()).forks(1).build()).run();
   }
 
   @Benchmark
   public void platformThread() throws InterruptedException {
-    Thread thread = new Thread(Loom4ThreadsVsVThreads::consumeCycles);
+    Thread thread = new Thread(Loom5ThreadsVsVThreads::consumeCycles);
     thread.start();
     thread.join();
   }
 
   @Benchmark
   public void virtualThread() throws InterruptedException {
-    Thread thread = Thread.startVirtualThread(Loom4ThreadsVsVThreads::consumeCycles);
+    Thread thread = Thread.startVirtualThread(Loom5ThreadsVsVThreads::consumeCycles);
     thread.join();
   }
 
