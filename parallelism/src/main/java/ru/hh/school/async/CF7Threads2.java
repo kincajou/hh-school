@@ -10,7 +10,8 @@ public class CF7Threads2 {
 
   public static void main(String[] args) {
     CompletableFuture<String> promise = new CompletableFuture<>();
-    CompletableFuture<Void> promiseWithModifiers = promise.thenApply(s -> s + ", Петя")
+    CompletableFuture<Void> promiseWithModifiers = promise
+        .thenApply(s -> s + ", Петя")
         .thenApply(s -> s + ", Аня")
         .thenApply(s -> s + ", Света")
         .thenApply(s -> s + " едят пиццу")

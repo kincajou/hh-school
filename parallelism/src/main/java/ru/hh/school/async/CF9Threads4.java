@@ -17,7 +17,8 @@ public class CF9Threads4 {
     CompletableFuture<String> promise = new CompletableFuture<>();
     CompletableFuture<String> promise2 = new CompletableFuture<>();
 
-    CompletableFuture<Void> promiseWithModifiers = promise.thenApply(s -> s + ", Петя")
+    CompletableFuture<Void> promiseWithModifiers = promise
+        .thenApply(s -> s + ", Петя")
         .thenApplyAsync(s -> s + ", Аня", executor)
         .thenApply(s -> s + ", Света")
         .thenCombine(promise2, (s1, s2) -> s1 + " а так же " + s2)

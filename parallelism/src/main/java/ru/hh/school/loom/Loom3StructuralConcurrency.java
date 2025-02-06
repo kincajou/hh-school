@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
 // Structural concurrency is still a preview feature, needs --enable-preview jvm argument and api is subject to change
+@SuppressWarnings("preview")
 public class Loom3StructuralConcurrency {
 
   private static final Logger LOGGER = getLogger(Loom3StructuralConcurrency.class);

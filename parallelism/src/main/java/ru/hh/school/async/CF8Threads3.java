@@ -15,7 +15,8 @@ public class CF8Threads3 {
     ExecutorService executor = Executors.newSingleThreadExecutor(r -> new Thread(r, "Thread 3"));
 
     CompletableFuture<String> promise = new CompletableFuture<>();
-    CompletableFuture<Void> promiseWithModifiers = promise.thenApply(s -> s + ", Петя")
+    CompletableFuture<Void> promiseWithModifiers = promise
+        .thenApply(s -> s + ", Петя")
         .thenApplyAsync(s -> s + ", Аня", executor)
         .thenApply(s -> s + ", Света")
         .thenApply(s -> s + " едят пиццу")
