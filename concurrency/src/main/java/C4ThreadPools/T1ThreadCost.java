@@ -7,7 +7,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class T1ThreadCost {
 
-  // Ok, let's always use thread confined variables and publish results with Thread.join().
+  // Ok, let's always use thread-confined variables and publish results with Thread.join().
   // Will it work for small tasks?
 
   private static final Logger LOGGER = getLogger(T1ThreadCost.class);
@@ -22,7 +22,7 @@ public class T1ThreadCost {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
 
     int iterations = 100_000;
 

@@ -40,12 +40,12 @@ public class W1ProducerConsumerProblem {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
 
     SingularQueue<String> singularQueue = new SingularQueue<>();
 
     Runnable consumerTask = () -> {
-      while(!Thread.currentThread().isInterrupted()) {
+      while (!Thread.currentThread().isInterrupted()) {
         String string = singularQueue.consume();
         LOGGER.debug("Consumed: {}", string);
       }

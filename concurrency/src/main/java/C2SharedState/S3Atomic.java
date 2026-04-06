@@ -18,7 +18,7 @@ public class S3Atomic {
   //      return next;
   //  }
   //
-  // Great on low contented threads, but bad on high.
+  // Great on low-contented threads, but bad on high.
 
   private static final Logger LOGGER = getLogger(S3Atomic.class);
 
@@ -38,7 +38,7 @@ public class S3Atomic {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
 
     int iterations = 100_000_000;
     int numOfThreads = 2;

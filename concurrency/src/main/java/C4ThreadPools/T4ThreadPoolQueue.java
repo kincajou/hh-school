@@ -17,13 +17,13 @@ public class T4ThreadPoolQueue {
   //
   // For real time site requests we use:
   // - large thread pools (100-1000 threads)
-  // - zero length queue (many threads is a sort of queue itself, it is bad to let requests sour in a long queue)
-  // - "fail fast on reject" behaviour
+  // - zero length queue (many threads are a sort of queue itself, it is bad to let requests sour in a long queue)
+  // - "fail fast on reject" behavior
   //
   // For offline tasks we use:
   // - small thread pools (<100 threads)
   // - moderate size queue (100-10_000)
-  // - "block on reject" behaviour
+  // - "block on reject" behavior
 
   private static final Logger LOGGER = getLogger(T4ThreadPoolQueue.class);
 
@@ -38,7 +38,7 @@ public class T4ThreadPoolQueue {
     }
   }
 
-  public static void main(String[] args) {
+  static void main() {
 
     int maxQueueSize = 100;
     BlockingQueue<Runnable> blockingQueue = new ArrayBlockingQueue<>(maxQueueSize);

@@ -24,7 +24,7 @@ public class T2ThreadPool {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException, ExecutionException {
+  static void main() throws InterruptedException, ExecutionException {
 
     int iterations = 100_000;
 
@@ -43,7 +43,7 @@ public class T2ThreadPool {
         blackHole += future.get();
       }
 
-      // don't forget to shut down the executor
+      // remember to shut down the executor
 
       // stops accepting new tasks
       executorService.shutdown();

@@ -25,7 +25,7 @@ public class T3ThreadPoolProblem {
     }
   }
 
-  public static void main(String[] args) {
+  static void main() {
 
     Executor executor = Executors.newSingleThreadExecutor();
 

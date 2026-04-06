@@ -25,7 +25,7 @@ public class I1InterruptThread {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
 
     LongTask longTask = new LongTask();
 

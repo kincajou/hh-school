@@ -26,7 +26,7 @@ public class V1NoVisibility {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() {
 
     int iterations = 100_000;
 

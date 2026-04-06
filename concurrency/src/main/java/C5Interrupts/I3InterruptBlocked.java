@@ -6,9 +6,9 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class I3InterruptBlocked {
 
-  // Ok, we check interrupted flag.
+  // Ok, we are checking the interrupted flag.
   // But what if the thread is blocked.
-  // For example, waiting response from database.
+  // For example, waiting response from a database.
 
   private static final Logger LOGGER = getLogger(I3InterruptBlocked.class);
 
@@ -30,7 +30,7 @@ public class I3InterruptBlocked {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
 
     LongTask longTask = new LongTask();
 

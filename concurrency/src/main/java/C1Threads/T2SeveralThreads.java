@@ -12,12 +12,12 @@ public class T2SeveralThreads {
 
   private static final Logger LOGGER = getLogger(T2SeveralThreads.class);
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
 
     int iterations = 1_000_000_000;
     // how many cores do we have?
     int numOfThreads = Runtime.getRuntime().availableProcessors();
-    LOGGER.debug("num of threads: " + numOfThreads);
+    LOGGER.debug("num of threads: {}", numOfThreads);
 
     while (true) {
       long start = currentTimeMillis();

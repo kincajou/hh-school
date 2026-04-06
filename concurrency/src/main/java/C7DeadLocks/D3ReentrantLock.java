@@ -64,7 +64,7 @@ public class D3ReentrantLock {
     };
   }
 
-  public static void main(String[] args) {
+  static void main() {
 
     Wallet wallet1 = new Wallet();
     Wallet wallet2 = new Wallet();

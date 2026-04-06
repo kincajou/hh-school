@@ -27,7 +27,7 @@ public class S6ThreadConfinement2 {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
 
     int iterations = 100_000_000;
     int numOfThreads = 2;

@@ -29,7 +29,7 @@ public class V3VisibilityByVolatile {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() {
 
     int iterations = 100_000_000;
 

@@ -9,8 +9,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class W4LockCondition {
 
   // The same as previous version but using java.util.concurrent.locks.
-  // No point of using Lock and Condition for this particular task.
-  // But look at other methods provided by these interfaces, for example Lock.tryLock(time, unit).
+  // No point in using Lock and Condition for this particular task.
+  // But look at other methods provided by these interfaces, for example, Lock.tryLock(time, unit).
   // Also look through other synchronizers: Semaphore, CountDownLatch, CyclicBarrier, etc.
   // https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/concurrent/package-summary.html
 
@@ -55,12 +55,12 @@ public class W4LockCondition {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
 
     SingularQueue<String> singularQueue = new SingularQueue<>();
 
     Runnable consumerTask = () -> {
-      while(!Thread.currentThread().isInterrupted()) {
+      while (!Thread.currentThread().isInterrupted()) {
         String string;
         try {
           string = singularQueue.consume();

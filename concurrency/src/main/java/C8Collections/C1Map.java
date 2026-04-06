@@ -55,7 +55,7 @@ public class C1Map {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
     while(true) doCycle();
   }
 

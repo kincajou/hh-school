@@ -7,7 +7,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class D2DeadLockFix {
 
-  // Let's always synchronize in particular order.
+  // Let's always synchronize in a particular order.
   // What if wallet will be the same?
 
   private static final Logger LOGGER = getLogger(D2DeadLockFix.class);
@@ -46,7 +46,7 @@ public class D2DeadLockFix {
     };
   }
 
-  public static void main(String[] args) {
+  static void main() {
 
     Wallet wallet1 = new Wallet(1);
     Wallet wallet2 = new Wallet(2);

@@ -33,7 +33,7 @@ public class T1OneThread {
     }
   }
 
-  public static void main(String[] args) {
+  static void main() {
 
     int iterations = 1_000_000_000;
 

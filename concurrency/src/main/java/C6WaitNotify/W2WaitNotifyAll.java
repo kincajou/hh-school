@@ -42,16 +42,17 @@ public class W2WaitNotifyAll {
     }
   }
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
 
     SingularQueue<String> singularQueue = new SingularQueue<>();
 
     Runnable consumerTask = () -> {
-      while(!Thread.currentThread().isInterrupted()) {
-        String string = null;
+      while (!Thread.currentThread().isInterrupted()) {
+        String string;
         try {
           string = singularQueue.consume();
         } catch (InterruptedException e) {
+          LOGGER.debug("Consumer is interrupted, stopping");
           return;
         }
         LOGGER.debug("Consumed {}", string);
