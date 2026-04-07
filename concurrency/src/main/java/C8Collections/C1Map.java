@@ -47,6 +47,10 @@ public class C1Map {
 
     @Override
     protected void onIteration() {
+//      for (CachedValue cv : CACHE.values()) {
+//        blackhole += cv.value;
+//      }
+
       int value = iteration.incrementAndGet();
       CachedValue cachedValue = CACHE.get(value);
       if (cachedValue != null) {
