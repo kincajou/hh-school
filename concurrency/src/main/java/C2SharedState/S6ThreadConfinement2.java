@@ -48,6 +48,7 @@ public class S6ThreadConfinement2 {
       long duration = currentTimeMillis() - start;
       LOGGER.debug("{} ms, {} iterations", duration, actualIterations);
 
+      // why results are unstable?
       // why starting phase is unstable?
     }
   }
