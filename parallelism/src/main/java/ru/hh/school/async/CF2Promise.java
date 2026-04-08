@@ -1,17 +1,17 @@
 package ru.hh.school.async;
 
+import static com.google.common.util.concurrent.Uninterruptibles.sleepUninterruptibly;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static com.google.common.util.concurrent.Uninterruptibles.sleepUninterruptibly;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class CF2Promise {
   
   private static final Logger LOGGER = LoggerFactory.getLogger(CF2Promise.class);
 
-  public static void main(String[] args) throws ExecutionException, InterruptedException {
+  static void main() throws ExecutionException, InterruptedException {
     CompletableFuture<String> promise = new CompletableFuture<>();
 
     new Thread(() -> {

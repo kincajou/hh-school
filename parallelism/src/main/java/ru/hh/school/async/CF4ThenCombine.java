@@ -8,7 +8,7 @@ public class CF4ThenCombine {
 
   private static final Logger LOGGER = getLogger(CF4ThenCombine.class);
 
-  public static void main(String[] args) {
+  static void main() {
 
     getData1()
       .thenCombine(getData2(), (data1, data2) -> data1.length() + data2.length())

@@ -5,13 +5,14 @@ import java.util.concurrent.StructuredTaskScope;
 import java.util.concurrent.atomic.LongAdder;
 import ru.hh.school.parallelism.Runner;
 
+@SuppressWarnings("preview")
 public class VirtualTask {
 
   private final int tasks;
   private final LongAdder resultAccumulator;
-  private final StructuredTaskScope<Void> scope;
+  private final StructuredTaskScope<Object, Void> scope;
 
-  public VirtualTask(int tasks, LongAdder resultAccumulator, StructuredTaskScope<Void> scope) {
+  public VirtualTask(int tasks, LongAdder resultAccumulator, StructuredTaskScope<Object, Void> scope) {
     this.tasks = tasks;
     this.resultAccumulator = resultAccumulator;
     this.scope = scope;

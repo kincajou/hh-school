@@ -1,16 +1,16 @@
 package ru.hh.school.async;
 
-import java.util.concurrent.CompletableFuture;
-import org.slf4j.Logger;
 import static com.google.common.util.concurrent.Uninterruptibles.sleepUninterruptibly;
+import java.util.concurrent.CompletableFuture;
 import static java.util.concurrent.TimeUnit.SECONDS;
+import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class CF1 {
 
   private static final Logger LOGGER = getLogger(CF1.class);
 
-  public static void main(String[] args) {
+  static void main() {
     // print the output
     CompletableFuture.supplyAsync(() -> "1. Completed")
       .thenAccept(LOGGER::debug);

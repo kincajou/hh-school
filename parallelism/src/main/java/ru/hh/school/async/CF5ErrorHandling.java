@@ -9,7 +9,7 @@ public class CF5ErrorHandling {
 
   private static final Logger LOGGER = getLogger(CF5ErrorHandling.class);
 
-  public static void main(String[] args) throws ExecutionException, InterruptedException {
+  static void main() throws ExecutionException, InterruptedException {
 
     CompletableFuture<String> promise = new CompletableFuture<>();
 

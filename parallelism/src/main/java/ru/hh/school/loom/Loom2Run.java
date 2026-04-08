@@ -11,7 +11,7 @@ public class Loom2Run {
 
   private static final Logger LOGGER = getLogger(Loom2Run.class);
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
     CountDownLatch latch = new CountDownLatch(100_000);
 
     IntStream.range(0, 100_000).forEach(i -> Thread.startVirtualThread(() -> {

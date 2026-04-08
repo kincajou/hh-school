@@ -16,7 +16,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @BenchmarkMode(Mode.Throughput)
 public class Loom5ThreadsVsVThreads {
 
-  public static void main(String[] args) throws Exception {
+  static void main() throws Exception {
     new Runner(new OptionsBuilder().include(Loom5ThreadsVsVThreads.class.getSimpleName()).forks(1).build()).run();
   }
 

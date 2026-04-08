@@ -20,7 +20,7 @@ public class Loom6Benchmark extends ru.hh.school.parallelism.Runner {
     VIRTUAL_THREAD_EXECUTOR.shutdown(); // not sure if needed
   }
 
-  public static void main(String[] args) throws Exception {
+  static void main() throws Exception {
     new org.openjdk.jmh.runner.Runner(new OptionsBuilder().include(Loom6Benchmark.class.getCanonicalName()).addProfiler("gc").forks(1).build()).run();
   }
 

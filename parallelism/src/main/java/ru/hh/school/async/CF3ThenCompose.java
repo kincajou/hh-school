@@ -8,7 +8,7 @@ public class CF3ThenCompose {
 
   private static final Logger LOGGER = getLogger(CF3ThenCompose.class);
 
-  public static void main(String[] args) {
+  static void main() {
 
     getData()
       .thenCompose(data -> getLength(data))

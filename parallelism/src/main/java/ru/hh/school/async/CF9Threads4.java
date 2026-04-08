@@ -11,7 +11,7 @@ public class CF9Threads4 {
 
   private static final Logger LOGGER = getLogger(CF9Threads4.class);
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
     ExecutorService executor = Executors.newSingleThreadExecutor(r -> new Thread(r, "Thread 3"));
 
     CompletableFuture<String> promise = new CompletableFuture<>();

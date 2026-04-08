@@ -29,7 +29,7 @@ public class Loom4ScopedValue {
 
   public static final ScopedValue<User> CURRENT_USER = ScopedValue.newInstance();
 
-  public static void main(String[] args) throws InterruptedException, ExecutionException, TimeoutException {
+  static void main() throws InterruptedException, ExecutionException, TimeoutException {
     platformThreadExample();
     virtualThreadExample();
     inheritanceViaStructuredTaskScopeExample();
@@ -56,8 +56,8 @@ public class Loom4ScopedValue {
         .name("platformThreadExample")
         .start(() -> ScopedValue.where(CURRENT_USER, new User(1, "Duke")).run(Loom4ScopedValue::logCurrentUser))
         .join();
-    // ScopedValue.runWhere(...); returns nothing
-    // ScopedValue.callWhere(...); returns something
+    // ScopedValue.where(...).run(...); returns nothing
+    // ScopedValue.where(...).call(...); returns something
     // ScopedValue.where(...).where(...).run(...); allows to bind multiple values builder-style
   }
 
@@ -70,8 +70,8 @@ public class Loom4ScopedValue {
   }
 
   private static void inheritanceViaStructuredTaskScopeExample() {
-    ScopedValue.runWhere(CURRENT_USER, new User(3, "Duchess"), () -> {
-      try (var scope = new StructuredTaskScope<Integer>()) {
+    ScopedValue.where(CURRENT_USER, new User(3, "Duchess")).run(() -> {
+      try (var scope = StructuredTaskScope.<Integer>open()) {
         scope.fork(Loom4ScopedValue::logCurrentUser);
         scope.fork(Loom4ScopedValue::logCurrentUser);
         try {
@@ -84,13 +84,11 @@ public class Loom4ScopedValue {
   }
 
   private static void rebindingExample() throws InterruptedException {
-    Thread.ofVirtual().name("rebindingExample").start(() -> ScopedValue.runWhere(
-        CURRENT_USER, new User(4, "Duke"), () -> {
-          logCurrentUser();
-          ScopedValue.runWhere(CURRENT_USER, new User(5, "Duchess"), Loom4ScopedValue::logCurrentUser);
-          logCurrentUser();
-        }
-    )).join();
+    Thread.ofVirtual().name("rebindingExample").start(() -> ScopedValue.where(CURRENT_USER, new User(4, "Duke")).run(() -> {
+      logCurrentUser();
+      ScopedValue.where(CURRENT_USER, new User(5, "Duchess")).run(Loom4ScopedValue::logCurrentUser);
+      logCurrentUser();
+    })).join();
   }
 
   private static void noValueExample() {
@@ -103,10 +101,8 @@ public class Loom4ScopedValue {
   }
 
   private static void belongsToThreadExample() {
-    ScopedValue.runWhere(
-        CURRENT_USER,
-        new User(6, "Ductape"),
-        () -> Thread.ofVirtual().name("belongsToThreadExample").start(Loom4ScopedValue::logCurrentUser)
-    );
+    ScopedValue
+        .where(CURRENT_USER, new User(6, "Ductape"))
+        .run(() -> Thread.ofVirtual().name("belongsToThreadExample").start(Loom4ScopedValue::logCurrentUser));
   }
 }

@@ -10,7 +10,7 @@ public class Loom1Run {
 
   private static final Logger LOGGER = getLogger(Loom1Run.class);
 
-  public static void main(String[] args) {
+  static void main() {
     try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
       IntStream.range(0, 100_000).forEach(i -> executor.submit(() -> {
         Thread.sleep(Duration.ofSeconds(1));

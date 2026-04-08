@@ -3,21 +3,21 @@ package ru.hh.school.homework;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
-import java.util.stream.Stream;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import static java.util.Collections.reverseOrder;
+import java.util.Map;
 import static java.util.Map.Entry.comparingByValue;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toMap;
+import java.util.stream.Stream;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 public class Launcher {
 
-  public static void main(String[] args) throws IOException {
+  static void main() throws IOException {
     // Написать код, который, как можно более параллельно:
     // - по заданному пути найдет все "*.java" файлы
     // - для каждого файла вычислит 10 самых популярных слов (см. #naiveCount())

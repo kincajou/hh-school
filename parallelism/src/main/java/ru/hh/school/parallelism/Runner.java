@@ -21,7 +21,7 @@ import ru.hh.school.parallelism.stream.ParallelStreamComputation;
 @BenchmarkMode(Mode.Throughput)
 public class Runner {
 
-  public static void main(String[] args) throws Exception {
+  static void main() throws Exception {
     new org.openjdk.jmh.runner.Runner(new OptionsBuilder().include(Runner.class.getCanonicalName()).forks(1).build()).run();
   }
 

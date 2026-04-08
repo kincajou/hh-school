@@ -1,9 +1,7 @@
 package ru.hh.school.loom;
 
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.StructuredTaskScope;
-import java.util.concurrent.TimeoutException;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -15,31 +13,28 @@ public class Loom3StructuralConcurrency {
 
   private static final Random RANDOM = new Random();
 
-  public static void main(String[] args) throws InterruptedException, ExecutionException, TimeoutException {
-    LOGGER.debug("StructuredTaskScope.ShutdownOnSuccess");
+  static void main() throws InterruptedException {
+    LOGGER.debug("StructuredTaskScope anySuccessfulOrThrow");
     // captures first success result, interrupts other unfinished threads
-    try (var scope = new StructuredTaskScope.ShutdownOnSuccess<String>()) {
+    try (var scope = StructuredTaskScope.open(StructuredTaskScope.Joiner.<String>anySuccessfulOrThrow())) {
       scope.fork(() -> get("Foo"));
       scope.fork(() -> {
         return get("Bar");
 //        throw new RuntimeException("zxc");
       });
-      scope.join();
-      LOGGER.debug("Result is {}", scope.result());
+      String result = scope.join();
+      LOGGER.debug("Result is {}", result);
     }
 
-
-    LOGGER.debug("StructuredTaskScope.ShutdownOnFailure");
+    LOGGER.debug("StructuredTaskScope default");
     // throws on first failure, interrupts other unfinished threads
-    try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+    try (var scope = StructuredTaskScope.<String>open()) {
       StructuredTaskScope.Subtask<String> foo = scope.fork(() -> get("Foo"));
       StructuredTaskScope.Subtask<String> bar = scope.fork(() -> {
          return get("Bar");
 //        throw new RuntimeException("zxc");
       });
       scope.join();
-//      scope.joinUntil(Instant.now().plusMillis(10000));
-//      scope.throwIfFailed();
       LOGGER.debug("Foo is {}", foo.state());
       LOGGER.debug("Bar is {}", bar.state());
     }

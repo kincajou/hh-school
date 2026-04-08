@@ -8,7 +8,7 @@ public class CF7Threads2 {
 
   private static final Logger LOGGER = getLogger(CF7Threads2.class);
 
-  public static void main(String[] args) {
+  static void main() {
     CompletableFuture<String> promise = new CompletableFuture<>();
     CompletableFuture<Void> promiseWithModifiers = promise
         .thenApply(s -> s + ", Петя")
