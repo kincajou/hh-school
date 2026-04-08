@@ -2,16 +2,16 @@ package ru.hh.school.parallelism;
 
 import com.google.common.util.concurrent.Uninterruptibles;
 import java.util.concurrent.ForkJoinPool;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import java.util.stream.IntStream;
 import org.slf4j.Logger;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class ParallelStreamInMyFJP {
 
   private static final Logger LOGGER = getLogger(ParallelStreamInMyFJP.class);
 
-  public static void main(String[] args) throws InterruptedException {
+  static void main() throws InterruptedException {
     LOGGER.debug("Running in common");
 
     IntStream.range(0, 5).parallel().forEach(ParallelStreamInMyFJP::performTask);
