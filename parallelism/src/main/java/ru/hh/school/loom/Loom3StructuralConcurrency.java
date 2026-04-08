@@ -38,6 +38,9 @@ public class Loom3StructuralConcurrency {
       LOGGER.debug("Foo is {}", foo.state());
       LOGGER.debug("Bar is {}", bar.state());
     }
+
+    // set name, thread factory or timeout
+    // StructuredTaskScope.open(anySuccessfulOrThrow(), cfg -> cfg.withName(...).withThreadFactory(...).withTimeout(...))
   }
 
   private static String get(String string) {
