@@ -1,8 +1,6 @@
 package ru.hh.school.loom;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.StructuredTaskScope;
-import java.util.concurrent.TimeoutException;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -29,7 +27,7 @@ public class Loom4ScopedValue {
 
   public static final ScopedValue<User> CURRENT_USER = ScopedValue.newInstance();
 
-  static void main() throws InterruptedException, ExecutionException, TimeoutException {
+  static void main() throws InterruptedException {
     platformThreadExample();
     virtualThreadExample();
     inheritanceViaStructuredTaskScopeExample();
